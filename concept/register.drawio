@@ -1,0 +1,62 @@
+<mxfile host="65bd71144e">
+    <diagram id="L2iWvlBcFiVjpoBjf2YR" name="Page-1">
+        <mxGraphModel dx="1963" dy="663" grid="1" gridSize="10" guides="1" tooltips="1" connect="1" arrows="1" fold="1" page="1" pageScale="1" pageWidth="850" pageHeight="1100" math="0" shadow="0">
+            <root>
+                <mxCell id="0"/>
+                <mxCell id="1" parent="0"/>
+                <mxCell id="12" value="USER" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="40" y="240" width="200" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="14" value="userId (uuid)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="12">
+                    <mxGeometry x="55" y="40" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="20" value="password (varchar)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="12">
+                    <mxGeometry x="35" y="185" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="15" value="firstName (varchar)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="12">
+                    <mxGeometry x="35" y="65" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="21" value="lastName (varchar)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="12">
+                    <mxGeometry x="35" y="95" width="130" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="18" value="email (varchar)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="12">
+                    <mxGeometry x="50" y="125" width="100" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="19" value="locality (Locality)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="12">
+                    <mxGeometry x="45" y="155" width="110" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="22" value="LOCALITY" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="330" y="240" width="200" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="23" value="id (uuid)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="22">
+                    <mxGeometry x="65" y="40" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="25" value="localityName" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="22">
+                    <mxGeometry x="55" y="65" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="26" value="countryId" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="22">
+                    <mxGeometry x="65" y="95" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="32" style="edgeStyle=none;html=1;" edge="1" parent="1" source="19">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="330" y="410" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+                <mxCell id="33" value="COUNTRY" style="swimlane;whiteSpace=wrap;html=1;" vertex="1" parent="1">
+                    <mxGeometry x="590" y="240" width="200" height="230" as="geometry"/>
+                </mxCell>
+                <mxCell id="34" value="id (uuid)" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="33">
+                    <mxGeometry x="65" y="40" width="70" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="35" value="countryName" style="text;html=1;align=center;verticalAlign=middle;resizable=0;points=[];autosize=1;strokeColor=none;fillColor=none;" vertex="1" parent="33">
+                    <mxGeometry x="55" y="65" width="90" height="30" as="geometry"/>
+                </mxCell>
+                <mxCell id="38" style="edgeStyle=none;html=1;" edge="1" parent="1" source="26">
+                    <mxGeometry relative="1" as="geometry">
+                        <mxPoint x="590" y="350.0000000000001" as="targetPoint"/>
+                    </mxGeometry>
+                </mxCell>
+            </root>
+        </mxGraphModel>
+    </diagram>
+</mxfile>
