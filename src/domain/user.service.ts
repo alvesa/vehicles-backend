@@ -11,6 +11,20 @@ export class UserDto {
   email: string;
   localityId?: Locality;
   password: string;
+
+  constructor(
+    id: string,
+    firstName: string,
+    lastName: string,
+    email: string,
+    password: string,
+  ) {
+    this.id = id;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.email = email;
+    this.password = password;
+  }
 }
 
 @Injectable()
@@ -28,6 +42,20 @@ export class UserService {
       // localityId: user.localityId,
       password: user.password,
     }));
+  }
+
+  getById(id: string): UserDto {
+    const user = this.userRepository.getById(id);
+
+    if (!user) return;
+
+    return new UserDto(
+      user.id,
+      user.firstName,
+      user.lastName,
+      user.email,
+      user.password,
+    );
   }
 
   save(user: UserRequest): void {
