@@ -1,0 +1,16 @@
+@base_url = http://localhost:3000/user
+@content_type = application/json
+
+### Get all users
+GET {{base_url}}
+
+### Create user
+POST {{base_url}}
+content-type: {{content_type}}
+
+{
+    "firstName": "Andre",
+    "lastName": "Alves",
+    "email": "email@email.com",
+    "password": "1234"
+}
