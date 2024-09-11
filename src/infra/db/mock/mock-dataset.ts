@@ -1,17 +1,17 @@
-import { DbBase } from './db_base';
-import { User } from '../entities/user.entity';
+import { DatasetBase } from '../dataset-base';
+import { User } from '../../entities/user.entity';
 
-export class MockDb implements DbBase {
+export class MockDataset implements DatasetBase {
   private static readonly users: User[] = [];
 
   getAll() {
-    return MockDb.users;
+    return MockDataset.users;
   }
   getById(id: string) {
-    return MockDb.users.find((user) => user.id === id);
+    return MockDataset.users.find((user) => user.id === id);
   }
   save(entity: User) {
-    MockDb.users.push(entity);
+    MockDataset.users.push(entity);
     return entity;
   }
   update(entity: User) {
@@ -27,6 +27,6 @@ export class MockDb implements DbBase {
   }
   delete(id: string) {
     const user = this.getById(id);
-    MockDb.users.splice(MockDb.users.indexOf(user), 1);
+    MockDataset.users.splice(MockDataset.users.indexOf(user), 1);
   }
 }

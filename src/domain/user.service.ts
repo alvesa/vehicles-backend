@@ -1,8 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { Locality } from '../infra/entities/locality.entity';
-import { UserRepository } from '../infra/repositories/user.repository';
 import { randomUUID } from 'crypto';
-import { UserRequest } from 'src/application/user/user.controller';
+import { UserRequest } from '../application/user/user.controller';
+import { DatasetRepository } from '../infra/repositories/dataset.repository';
+import { User } from '../infra/entities/user.entity';
 
 export class UserDto {
   id: string;
@@ -29,7 +30,7 @@ export class UserDto {
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: UserRepository) {}
+  constructor(private readonly userRepository: DatasetRepository<User>) {}
 
   getAll(): UserDto[] {
     const users = this.userRepository.getAll();

@@ -1,11 +1,11 @@
 import { Injectable } from '@nestjs/common';
-import { MockDb } from '../db/mock.db';
-import { User } from '../entities/user.entity';
-import { DatasetRepository } from './dataset.repository';
+import { User } from '../../entities/user.entity';
+import { DatasetRepository } from '../dataset.repository';
+import { DatasetBase } from '../../db/dataset-base';
 
 @Injectable()
 export class UserRepository extends DatasetRepository<User> {
-  constructor(private readonly mockDb: MockDb) {
+  constructor(private readonly mockDb: DatasetBase) {
     super();
   }
 

@@ -4,6 +4,9 @@
 ### Get all users
 GET {{base_url}}
 
+### Get user by id
+GET {{base_url}}/a13af83d-a4a7-4351-8bcc-1379c2e1bb19
+
 ### Create user
 POST {{base_url}}
 content-type: {{content_type}}
