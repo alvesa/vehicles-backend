@@ -10,7 +10,7 @@ export class UserDto {
   firstName: string;
   lastName: string;
   email: string;
-  localityId?: Locality;
+  locality?: Locality;
   password: string;
 
   constructor(
@@ -30,7 +30,10 @@ export class UserDto {
 
 @Injectable()
 export class UserService {
-  constructor(private readonly userRepository: DatasetRepository<User>) {}
+  constructor(
+    private readonly userRepository: DatasetRepository<User>,
+    private readonly localityRepository: DatasetRepository<Locality>,
+  ) {}
 
   getAll(): UserDto[] {
     const users = this.userRepository.getAll();
@@ -40,7 +43,7 @@ export class UserService {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
-      // localityId: user.localityId,
+      locality: user.locality,
       password: user.password,
     }));
   }
@@ -60,13 +63,15 @@ export class UserService {
   }
 
   save(user: UserRequest): void {
+    const locality = this.localityRepository.getAll()[0];
+
     this.userRepository.save({
       id: randomUUID(),
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
       password: user.password,
-      localityId: new Locality(),
+      locality,
     });
   }
 }

@@ -1,7 +1,8 @@
 import { Country } from './country.entity';
+import { EntityType } from './user.entity';
 
-export class Locality {
+export class Locality extends EntityType {
   id: string;
   name: string;
-  countryId: Country;
+  country: Country;
 }

@@ -14,7 +14,7 @@ export class UserResponse {
   firstName: string;
   lastName: string;
   email: string;
-  localityId?: Locality;
+  locality?: Locality;
   password: string;
 
   constructor(
@@ -36,7 +36,7 @@ export class UserRequest {
   firstName: string;
   lastName: string;
   email: string;
-  localityId?: Locality;
+  locality?: Locality;
   password: string;
 }
 
@@ -55,6 +55,7 @@ export class UserController {
       firstName: user.firstName,
       lastName: user.lastName,
       email: user.email,
+      locality: user.locality,
       password: user.password,
     }));
   }

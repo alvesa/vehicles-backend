@@ -3,18 +3,26 @@ import { UserController } from './user.controller';
 import { UserService } from '../../domain/user.service';
 import { UserRepository } from '../../infra/repositories/user/user.repository';
 import { MockDataset } from '../../infra/db/mock/mock-dataset';
-import { DatasetBase } from '../../infra/db/dataset-base';
 import { DatasetRepository } from '../../infra/repositories/dataset.repository';
+import { LocalityRepository } from '../../infra/repositories/locality/locality.repository';
+import { Locality } from '../../infra/entities/locality.entity';
+import { User } from '../../infra/entities/user.entity';
 
 @Module({
   controllers: [UserController],
   providers: [
     UserService,
     {
-      provide: DatasetRepository,
+      provide: DatasetRepository<User>,
       useClass: UserRepository,
+      // inject: [MockDataset],
     },
-    { provide: DatasetBase, useClass: MockDataset },
+    {
+      provide: DatasetRepository<Locality>,
+      useClass: LocalityRepository,
+      // inject: [MockDataset],
+    },
+    MockDataset,
   ],
   exports: [],
 })

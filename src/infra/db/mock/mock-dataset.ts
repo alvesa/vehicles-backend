@@ -1,32 +1,85 @@
-import { DatasetBase } from '../dataset-base';
 import { User } from '../../entities/user.entity';
+import { Locality } from '../../entities/locality.entity';
+import { localities } from '../seed/locality.seed';
+import { Country } from '../../entities/country.entity';
+import { countries } from '../seed/country.seed';
 
-export class MockDataset implements DatasetBase {
-  private static readonly users: User[] = [];
+export class MockDataset {
+  private static readonly _users: User[] = [];
+  public readonly user = {
+    getAll(): User[] {
+      return MockDataset._users;
+    },
+    getById(id: string): User {
+      return MockDataset._users.find((user) => user.id === id);
+    },
+    save(entity: User): void {
+      MockDataset._users.push(entity);
+    },
+    update(entity: User): void {
+      const user = this.getById(entity.id);
 
-  getAll() {
-    return MockDataset.users;
-  }
-  getById(id: string) {
-    return MockDataset.users.find((user) => user.id === id);
-  }
-  save(entity: User) {
-    MockDataset.users.push(entity);
-    return entity;
-  }
-  update(entity: User) {
-    const user = this.getById(entity.id);
-
-    if (user) {
+      user.email = entity.email;
       user.firstName = entity.firstName;
       user.lastName = entity.lastName;
-      user.email = entity.email;
-      user.localityId = entity.localityId;
+      user.locality = entity.locality;
       user.password = entity.password;
-    }
-  }
-  delete(id: string) {
-    const user = this.getById(id);
-    MockDataset.users.splice(MockDataset.users.indexOf(user), 1);
-  }
+    },
+    delete(id: string): void {
+      const user = this.getById(id);
+      const index = MockDataset._users.indexOf(user);
+
+      MockDataset._users.splice(index, 1);
+    },
+  };
+
+  private static readonly _countries: Country[] = [...countries];
+  public readonly country = {
+    getAll(): Country[] {
+      return MockDataset._countries;
+    },
+    getById(id: string): Country {
+      return MockDataset._countries.find((country) => country.id === id);
+    },
+    save(entity: Country): void {
+      MockDataset._countries.push(entity);
+    },
+    update(entity: Country): void {
+      const country = this.getById(entity.id);
+
+      country.active = entity.active;
+      country.name = entity.name;
+    },
+    delete(id: string): void {
+      const country = this.getById(id);
+      const index = MockDataset._countries.indexOf(country);
+
+      MockDataset._countries.splice(index, 1);
+    },
+  };
+
+  private static readonly _localities: Locality[] = [...localities];
+  public readonly locality = {
+    getAll(): Locality[] {
+      return MockDataset._localities;
+    },
+    getById(id: string): Locality {
+      return MockDataset._localities.find((locality) => locality.id === id);
+    },
+    save(entity: Locality): void {
+      MockDataset._localities.push(entity);
+    },
+    update(entity: Locality): void {
+      const locality = this.getById(entity.id);
+
+      locality.country = entity.country;
+      locality.name = entity.name;
+    },
+    delete(id: string): void {
+      const locality = this.getById(id);
+      const index = MockDataset._localities.indexOf(locality);
+
+      MockDataset._localities.splice(index, 1);
+    },
+  };
 }
