@@ -15,15 +15,13 @@ import { User } from '../../infra/entities/user.entity';
     {
       provide: DatasetRepository<User>,
       useClass: UserRepository,
-      // inject: [MockDataset],
     },
     {
       provide: DatasetRepository<Locality>,
       useClass: LocalityRepository,
-      // inject: [MockDataset],
     },
     MockDataset,
   ],
-  exports: [],
+  exports: [DatasetRepository<User>, DatasetRepository<Locality>, MockDataset],
 })
 export class UserApplicationModule {}

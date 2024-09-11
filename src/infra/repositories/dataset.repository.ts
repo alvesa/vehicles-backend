@@ -1,3 +1,5 @@
+import { Injectable } from '@nestjs/common';
+
 export interface IDatasetRepository {
   getAll(): any;
   getById(id: string): any;
@@ -6,6 +8,7 @@ export interface IDatasetRepository {
   delete(entity: any): any;
 }
 
+@Injectable()
 export abstract class DatasetRepository<T> implements IDatasetRepository {
   abstract getAll(): T[];
   abstract getById(id: string): T;
