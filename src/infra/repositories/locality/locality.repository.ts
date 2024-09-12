@@ -9,9 +9,9 @@ export class LocalityRepository extends DatasetRepository<Locality> {
     super();
   }
   getAll(): Locality[] {
-    const a = this.mockDb.locality.getAll();
+    const localities = this.mockDb.locality.getAll();
 
-    return a;
+    return localities;
   }
   getById(id: string): Locality {
     return this.mockDb.locality.getById(id);

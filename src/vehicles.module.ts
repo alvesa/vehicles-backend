@@ -1,9 +1,9 @@
 import { Module } from '@nestjs/common';
-import { UserApplicationModule } from './application/user/user.application.module';
+import { VehiclesApplicationModule } from './application/vehicles.application.module';
 
 @Module({
-  imports: [UserApplicationModule],
-  controllers: [],
+  imports: [VehiclesApplicationModule],
   providers: [],
+  exports: [VehiclesApplicationModule],
 })
 export class VehiclesModule {}
