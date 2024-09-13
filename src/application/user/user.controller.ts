@@ -48,7 +48,7 @@ export class UserController {
   getAllUsers(): UserResponse[] {
     const users = this.userService.getAll();
 
-    if (!users.length) throw new NotFoundException('Users not found');
+    if (!users?.length) throw new NotFoundException('Users not found');
 
     return users.map((user: UserResponse) => ({
       id: user.id,

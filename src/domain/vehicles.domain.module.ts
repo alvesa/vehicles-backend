@@ -1,27 +1,9 @@
 import { Module } from '@nestjs/common';
-import {
-  DatasetRepository,
-  Locality,
-  LocalityRepository,
-  MockDataset,
-  User,
-  UserRepository,
-  VehiclesInfraModule,
-} from '../infra';
+import { VehiclesInfraModule } from '../infra';
 
 @Module({
   imports: [VehiclesInfraModule],
-  providers: [
-    MockDataset,
-    {
-      provide: DatasetRepository<User>,
-      useClass: UserRepository,
-    },
-    {
-      provide: DatasetRepository<Locality>,
-      useClass: LocalityRepository,
-    },
-  ],
+  providers: [],
   exports: [VehiclesInfraModule],
 })
 export class VehiclesDomainModule {}

@@ -11,22 +11,26 @@ import { LocalityRepository } from './repositories/locality/locality.repository'
   providers: [
     MockDataset,
     {
-      provide: DatasetRepository<User>,
+      useValue: DatasetRepository<User>,
+      provide: 'USER_REPOSITORY',
       useClass: UserRepository,
     },
     {
-      provide: DatasetRepository<Locality>,
+      useValue: DatasetRepository<Locality>,
+      provide: 'LOCALITY_REPOSITORY',
       useClass: LocalityRepository,
     },
   ],
   exports: [
     MockDataset,
     {
-      provide: DatasetRepository<User>,
+      useValue: DatasetRepository<User>,
+      provide: 'USER_REPOSITORY',
       useClass: UserRepository,
     },
     {
-      provide: DatasetRepository<Locality>,
+      useValue: DatasetRepository<Locality>,
+      provide: 'LOCALITY_REPOSITORY',
       useClass: LocalityRepository,
     },
   ],

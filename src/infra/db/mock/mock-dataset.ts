@@ -7,16 +7,16 @@ import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class MockDataset {
-  private readonly _users: User[] = [];
+  private static readonly _users: User[] = [];
   public readonly user = {
     getAll(): User[] {
-      return super._users;
+      return MockDataset._users;
     },
     getById(id: string): User {
-      return super._users.find((user) => user.id === id);
+      return MockDataset._users.find((user) => user.id === id);
     },
     save(entity: User): void {
-      super._users.push(entity);
+      MockDataset._users.push(entity);
     },
     update(entity: User): void {
       const user = this.getById(entity.id);
@@ -63,13 +63,13 @@ export class MockDataset {
   private static readonly _localities: Locality[] = [...localities];
   public readonly locality = {
     getAll(): Locality[] {
-      return super._localities;
+      return MockDataset._localities;
     },
     getById(id: string): Locality {
-      return super._localities.find((locality) => locality.id === id);
+      return MockDataset._localities.find((locality) => locality.id === id);
     },
     save(entity: Locality): void {
-      super._localities.push(entity);
+      MockDataset._localities.push(entity);
     },
     update(entity: Locality): void {
       const locality = this.getById(entity.id);
