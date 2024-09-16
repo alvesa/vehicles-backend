@@ -5,7 +5,7 @@ interface CountryRequest {
   name: string;
 }
 
-interface CountryResponse {
+export interface CountryResponse {
   id: string;
   name: string;
   active: boolean;

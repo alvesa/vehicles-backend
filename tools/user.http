@@ -21,10 +21,22 @@ content-type: {{content_type}}
 ### Get all countries
 GET {{base_url}}/country
 
-### Create user
+### Create country
 POST {{base_url}}/country
 content-type: {{content_type}}
 
 {
     "name": "Brazil"
+}
+
+### Get all localities
+GET {{base_url}}/locality
+
+### Create locality
+POST {{base_url}}/locality
+content-type: {{content_type}}
+
+{
+    "name": "Sao Paulo",
+    "countryId": "9b11eea6-6871-4762-9171-a66a9bd8203b"
 }

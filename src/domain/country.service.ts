@@ -2,7 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Country, DatasetRepository } from '../infra';
 import { randomUUID } from 'crypto';
 
-interface CountryDto {
+export interface CountryDto {
   id: string;
   name: string;
   active: boolean;

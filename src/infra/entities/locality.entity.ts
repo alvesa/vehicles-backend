@@ -1,8 +1,13 @@
 import { Country } from './country.entity';
-import { EntityType } from './user.entity';
 
-export class Locality extends EntityType {
+export class Locality {
   id: string;
   name: string;
   country: Country;
+
+  constructor(id: string, name: string, country: Country) {
+    this.id = id;
+    this.name = name;
+    this.country = country;
+  }
 }
