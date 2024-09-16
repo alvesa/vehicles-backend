@@ -38,13 +38,13 @@ export class MockDataset {
   private static readonly _countries: Country[] = [...countries];
   public readonly country = {
     getAll(): Country[] {
-      return super._countries;
+      return MockDataset._countries;
     },
     getById(id: string): Country {
-      return super._countries.find((country) => country.id === id);
+      return MockDataset._countries.find((country) => country.id === id);
     },
     save(entity: Country): void {
-      super._countries.push(entity);
+      MockDataset._countries.push(entity);
     },
     update(entity: Country): void {
       const country = this.getById(entity.id);
@@ -54,9 +54,9 @@ export class MockDataset {
     },
     delete(id: string): void {
       const country = this.getById(id);
-      const index = super._countries.indexOf(country);
+      const index = MockDataset._countries.indexOf(country);
 
-      super._countries.splice(index, 1);
+      MockDataset._countries.splice(index, 1);
     },
   };
 

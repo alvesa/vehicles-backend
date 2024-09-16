@@ -5,6 +5,8 @@ import { User } from './entities/user.entity';
 import { UserRepository } from './repositories/user/user.repository';
 import { Locality } from './entities/locality.entity';
 import { LocalityRepository } from './repositories/locality/locality.repository';
+import { Country } from './entities/country.entity';
+import { CountryRepository } from './repositories/country/country.repository';
 
 @Module({
   imports: [],
@@ -20,6 +22,11 @@ import { LocalityRepository } from './repositories/locality/locality.repository'
       provide: 'LOCALITY_REPOSITORY',
       useClass: LocalityRepository,
     },
+    {
+      useValue: DatasetRepository<Country>,
+      provide: 'COUNTRY_REPOSITORY',
+      useClass: CountryRepository,
+    },
   ],
   exports: [
     MockDataset,
@@ -32,6 +39,11 @@ import { LocalityRepository } from './repositories/locality/locality.repository'
       useValue: DatasetRepository<Locality>,
       provide: 'LOCALITY_REPOSITORY',
       useClass: LocalityRepository,
+    },
+    {
+      useValue: DatasetRepository<Country>,
+      provide: 'COUNTRY_REPOSITORY',
+      useClass: CountryRepository,
     },
   ],
 })

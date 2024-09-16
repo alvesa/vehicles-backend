@@ -1,14 +1,14 @@
-@base_url = http://localhost:3000/user
+@base_url = http://localhost:3000
 @content_type = application/json
 
 ### Get all users
-GET {{base_url}}
+GET {{base_url}}/user
 
 ### Get user by id
-GET {{base_url}}/a13af83d-a4a7-4351-8bcc-1379c2e1bb19
+GET {{base_url}}/user/dc62da74-18f0-4e20-9987-fac364032c28
 
 ### Create user
-POST {{base_url}}
+POST {{base_url}}/user
 content-type: {{content_type}}
 
 {
@@ -16,4 +16,15 @@ content-type: {{content_type}}
     "lastName": "Alves",
     "email": "email@email.com",
     "password": "1234"
+}
+
+### Get all countries
+GET {{base_url}}/country
+
+### Create user
+POST {{base_url}}/country
+content-type: {{content_type}}
+
+{
+    "name": "Brazil"
 }

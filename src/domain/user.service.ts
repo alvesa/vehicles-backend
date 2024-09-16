@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Locality } from '../infra/entities/locality.entity';
 import { randomUUID } from 'crypto';
-import { UserRequest } from '../application/user/user.controller';
+import { UserRequest } from '../application/controllers/user/user.controller';
 import { DatasetRepository } from '../infra/repositories/dataset.repository';
 import { User } from '../infra/entities/user.entity';
 

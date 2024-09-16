@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
-import { Country } from '../../entities/country.entity';
 import { DatasetRepository } from '../dataset.repository';
-import { MockDataset } from 'src/infra/db/mock/mock-dataset';
+import { MockDataset } from '../../db/mock/mock-dataset';
+import { Country } from 'src/infra/entities/country.entity';
 
 @Injectable()
 export class CountryRepository extends DatasetRepository<Country> {
@@ -18,7 +18,7 @@ export class CountryRepository extends DatasetRepository<Country> {
     this.mockDb.country.save(entity);
   }
   update(entity: Country): void {
-    this.update(entity);
+    this.mockDb.country.update(entity);
   }
   delete(id: string): void {
     this.mockDb.country.delete(id);

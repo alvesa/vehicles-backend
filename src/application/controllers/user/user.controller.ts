@@ -6,8 +6,8 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { UserService } from '../../domain/user.service';
-import { Locality } from '../../infra/entities/locality.entity';
+import { Locality } from '../../../infra/entities/locality.entity';
+import { UserService } from '../../../domain/user.service';
 
 export class UserResponse {
   id: string;
@@ -15,14 +15,14 @@ export class UserResponse {
   lastName: string;
   email: string;
   locality?: Locality;
-  password: string;
+  password?: string;
 
   constructor(
     id: string,
     firstName: string,
     lastName: string,
     email: string,
-    password: string,
+    password?: string,
   ) {
     this.id = id;
     this.firstName = firstName;
@@ -56,7 +56,7 @@ export class UserController {
       lastName: user.lastName,
       email: user.email,
       locality: user.locality,
-      password: user.password,
+      // password: user.password,
     }));
   }
 
@@ -76,7 +76,7 @@ export class UserController {
   }
 
   @Post()
-  AddUser(@Body() user: UserRequest): void {
+  addUser(@Body() user: UserRequest): void {
     return this.userService.save(user);
   }
 }
