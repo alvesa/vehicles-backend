@@ -40,3 +40,7 @@ content-type: {{content_type}}
     "name": "Sao Paulo",
     "countryId": "9b11eea6-6871-4762-9171-a66a9bd8203b"
 }
+
+
+### Get all brands
+GET {{base_url}}/brand

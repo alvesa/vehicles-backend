@@ -4,9 +4,13 @@ import { localities } from '../seed/locality.seed';
 import { Country } from '../../entities/country.entity';
 import { countries } from '../seed/country.seed';
 import { Injectable } from '@nestjs/common';
+import { brands } from '../seed/brand.seed';
+import { Brand } from '../../entities/brand.entity';
+
+// import { BaseDataset } from '../dataset-base';
 
 @Injectable()
-export class MockDataset {
+export class MockDataset /*implements BaseDataset*/ {
   private static readonly _users: User[] = [];
   public readonly user = {
     getAll(): User[] {
@@ -82,6 +86,31 @@ export class MockDataset {
       const index = super._localities.indexOf(locality);
 
       super._localities.splice(index, 1);
+    },
+  };
+
+  private static readonly _brands: Brand[] = [...brands];
+  public readonly brands = {
+    getAll(): Brand[] {
+      return MockDataset._brands;
+    },
+    getById(id: string): Brand {
+      return MockDataset._brands.find((brand) => brand.id === id);
+    },
+    save(entity: Brand): void {
+      MockDataset._brands.push(entity);
+    },
+    update(entity: Brand): void {
+      const brand = this.getById(entity.id);
+
+      brand.name = entity.name;
+      brand.active = entity.active;
+    },
+    delete(id: string): void {
+      const brand = this.getById(id);
+      const index = MockDataset._brands.indexOf(brand);
+
+      MockDataset._brands.splice(index, 1);
     },
   };
 }

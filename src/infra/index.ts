@@ -18,5 +18,6 @@ export * from './repositories/dataset.repository';
 export * from './repositories/country/country.repository';
 export * from './repositories/locality/locality.repository';
 export * from './repositories/user/user.repository';
+export * from './repositories/brand/brand.repository';
 
 export * from './vehicles.infra.module';

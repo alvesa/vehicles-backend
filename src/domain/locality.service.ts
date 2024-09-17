@@ -2,7 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { Country, DatasetRepository, Locality } from '../infra';
 import { CountryDto } from './country.service';
 import { randomUUID } from 'crypto';
-import { LocalityRequest } from 'src/application/controllers/locality/locality.controller';
+import { LocalityRequest } from 'application/controllers/locality/locality.controller';
 
 interface LocalityDto {
   name: string;

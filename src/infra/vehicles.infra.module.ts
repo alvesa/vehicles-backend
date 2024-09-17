@@ -1,12 +1,16 @@
 import { Module } from '@nestjs/common';
-import { MockDataset } from './db/mock/mock-dataset';
-import { DatasetRepository } from './repositories/dataset.repository';
-import { User } from './entities/user.entity';
-import { UserRepository } from './repositories/user/user.repository';
-import { Locality } from './entities/locality.entity';
-import { LocalityRepository } from './repositories/locality/locality.repository';
-import { Country } from './entities/country.entity';
-import { CountryRepository } from './repositories/country/country.repository';
+import {
+  Brand,
+  BrandRepository,
+  Country,
+  CountryRepository,
+  DatasetRepository,
+  Locality,
+  LocalityRepository,
+  MockDataset,
+  User,
+  UserRepository,
+} from 'infra';
 
 @Module({
   imports: [],
@@ -27,6 +31,11 @@ import { CountryRepository } from './repositories/country/country.repository';
       provide: 'COUNTRY_REPOSITORY',
       useClass: CountryRepository,
     },
+    {
+      useValue: DatasetRepository<Brand>,
+      provide: 'BRAND_REPOSITORY',
+      useClass: BrandRepository,
+    },
   ],
   exports: [
     MockDataset,
@@ -44,6 +53,11 @@ import { CountryRepository } from './repositories/country/country.repository';
       useValue: DatasetRepository<Country>,
       provide: 'COUNTRY_REPOSITORY',
       useClass: CountryRepository,
+    },
+    {
+      useValue: DatasetRepository<Brand>,
+      provide: 'BRAND_REPOSITORY',
+      useClass: BrandRepository,
     },
   ],
 })
