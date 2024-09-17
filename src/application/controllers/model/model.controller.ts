@@ -1,6 +1,6 @@
 import { Controller, Get, Param } from '@nestjs/common';
 // TODO: verify service imports
-import { ModelService } from 'domain/model.service';
+import { ModelService } from '../../../domain';
 
 interface ModelResponse {
   id: string;

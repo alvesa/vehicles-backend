@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { BrandService } from 'domain/brand.service';
+import { BrandService } from '../../../domain';
 
 export interface BrandRequest {
   name: string;

@@ -1,17 +1,19 @@
 import { Module } from '@nestjs/common';
-import { UserController } from './controllers/user/user.controller';
 import {
+  BrandService,
   CountryService,
+  LocalityService,
   ModelService,
   UserService,
   VehiclesDomainModule,
 } from '../domain';
-import { CountryController } from './controllers/country/country.controller';
-import { LocalityController } from './controllers/locality/locality.controller';
-import { LocalityService } from 'domain/locality.service';
-import { BrandController } from './controllers/brand/brand.controller';
-import { BrandService } from 'domain/brand.service';
-import { ModelController } from './controllers/model/model.controller';
+import {
+  BrandController,
+  CountryController,
+  LocalityController,
+  ModelController,
+  UserController,
+} from 'application';
 
 @Module({
   imports: [VehiclesDomainModule],
@@ -27,15 +29,8 @@ import { ModelController } from './controllers/model/model.controller';
     CountryService,
     LocalityService,
     BrandService,
-    BrandService,
     ModelService,
   ],
-  exports: [
-    UserService,
-    VehiclesDomainModule,
-    CountryService,
-    LocalityService,
-    ModelService,
-  ],
+  exports: [],
 })
 export class VehiclesApplicationModule {}

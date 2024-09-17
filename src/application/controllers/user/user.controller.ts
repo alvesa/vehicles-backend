@@ -6,8 +6,8 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { Locality } from '../../../infra/entities/locality.entity';
-import { UserService } from '../../../domain/user.service';
+import { UserService } from '../../../domain';
+import { Locality } from 'infra';
 
 export class UserResponse {
   id: string;

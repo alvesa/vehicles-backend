@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CountryService } from '../../../domain/country.service';
+import { CountryService } from '../../../domain';
 
 interface CountryRequest {
   name: string;

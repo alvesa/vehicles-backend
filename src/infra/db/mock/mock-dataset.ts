@@ -1,13 +1,9 @@
-import { User } from '../../entities/user.entity';
-import { Locality } from '../../entities/locality.entity';
 import { localities } from '../seed/locality.seed';
-import { Country } from '../../entities/country.entity';
 import { countries } from '../seed/country.seed';
 import { Injectable } from '@nestjs/common';
 import { brands } from '../seed/brand.seed';
-import { Brand } from '../../entities/brand.entity';
-import { Model } from 'infra/entities/model.entity';
 import { models } from '../seed/model.seed';
+import { Brand, Country, Locality, Model, User } from 'infra';
 
 // import { BaseDataset } from '../dataset-base';
 

@@ -1,7 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { MockDataset } from '../../db/mock/mock-dataset';
-import { Locality } from '../../entities/locality.entity';
-import { DatasetRepository } from '../dataset.repository';
+import { DatasetRepository, Locality, MockDataset } from 'infra';
 
 @Injectable()
 export class LocalityRepository extends DatasetRepository<Locality> {

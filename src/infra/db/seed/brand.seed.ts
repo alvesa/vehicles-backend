@@ -1,4 +1,4 @@
-import { Brand } from 'infra/entities/brand.entity';
+import { Brand } from 'infra';
 
 export const brands: Brand[] = [
   {

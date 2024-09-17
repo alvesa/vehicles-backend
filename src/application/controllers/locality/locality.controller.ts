@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { LocalityService } from '../../../domain/locality.service';
-import { CountryResponse } from '../country/country.controller';
+import { LocalityService } from '../../../domain';
+import { CountryResponse } from 'application';
 
 export interface LocalityRequest {
   name: string;

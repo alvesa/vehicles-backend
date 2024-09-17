@@ -1,4 +1,4 @@
-import { Country } from '../../../infra/entities/country.entity';
+import { Country } from 'infra';
 
 export const countries: Country[] = [
   {

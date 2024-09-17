@@ -1,5 +1,5 @@
 import { Module } from '@nestjs/common';
-import { VehiclesApplicationModule } from './application/vehicles.application.module';
+import { VehiclesApplicationModule } from 'application';
 
 @Module({
   imports: [VehiclesApplicationModule],

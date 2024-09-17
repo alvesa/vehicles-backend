@@ -1,6 +1,8 @@
 export * from './db/mock/mock-dataset';
 export * from './db/seed/country.seed';
 export * from './db/seed/locality.seed';
+export * from './db/seed/brand.seed';
+export * from './db/seed/model.seed';
 
 export * from './entities/brand.entity';
 export * from './entities/country.entity';
