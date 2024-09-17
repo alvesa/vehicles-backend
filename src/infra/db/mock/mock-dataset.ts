@@ -3,7 +3,8 @@ import { countries } from '../seed/country.seed';
 import { Injectable } from '@nestjs/common';
 import { brands } from '../seed/brand.seed';
 import { models } from '../seed/model.seed';
-import { Brand, Country, Locality, Model, User } from 'infra';
+import { voteTypes } from '../seed/voteType.seed';
+import { Brand, Country, Locality, Model, User, VoteType } from 'infra';
 
 // import { BaseDataset } from '../dataset-base';
 
@@ -135,6 +136,31 @@ export class MockDataset {
       const index = MockDataset._models.indexOf(model);
 
       MockDataset._models.splice(index, 1);
+    },
+  };
+
+  private static readonly _voteTypes: VoteType[] = [...voteTypes];
+  public readonly voteTypes = {
+    getAll(): VoteType[] {
+      return MockDataset._voteTypes;
+    },
+    getById(id: string): VoteType {
+      return MockDataset._voteTypes.find((item) => item.id === id);
+    },
+    save(entity: VoteType): void {
+      MockDataset._voteTypes.push(entity);
+    },
+    update(entity: VoteType): void {
+      const result = this.getById(entity.id);
+
+      result.name = entity.name;
+      result.active = entity.active;
+    },
+    delete(id: string): void {
+      const result = this.getById(id);
+      const index = MockDataset._voteTypes.indexOf(result);
+
+      MockDataset._voteTypes.splice(index, 1);
     },
   };
 }

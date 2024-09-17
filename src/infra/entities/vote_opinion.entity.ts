@@ -1,5 +1,5 @@
 import { Opinion } from './opinion.entity';
-import { VoteType } from './vote_type.entity';
+import { VoteType } from './voteType.entity';
 
 export class VoteTypeOpinion {
   id: string;

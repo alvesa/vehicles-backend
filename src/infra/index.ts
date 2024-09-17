@@ -14,7 +14,7 @@ export * from './entities/user.entity';
 export * from './entities/user_opinion.entity';
 export * from './entities/vehicle.entity';
 export * from './entities/vote_opinion.entity';
-export * from './entities/vote_type.entity';
+export * from './entities/voteType.entity';
 
 export * from './repositories/dataset.repository';
 export * from './repositories/country/country.repository';
@@ -22,5 +22,6 @@ export * from './repositories/locality/locality.repository';
 export * from './repositories/user/user.repository';
 export * from './repositories/brand/brand.repository';
 export * from './repositories/model/model.repository';
+export * from './repositories/vote-type/voteType.repository';
 
 export * from './vehicles.infra.module';

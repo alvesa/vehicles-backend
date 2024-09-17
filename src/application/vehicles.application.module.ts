@@ -14,6 +14,8 @@ import {
   ModelController,
   UserController,
 } from 'application';
+import { VoteTypeController } from './controllers/voteType/voteType.controller';
+import { VoteTypeService } from 'domain/voteType.service';
 
 @Module({
   imports: [VehiclesDomainModule],
@@ -23,6 +25,7 @@ import {
     LocalityController,
     BrandController,
     ModelController,
+    VoteTypeController,
   ],
   providers: [
     UserService,
@@ -30,6 +33,7 @@ import {
     LocalityService,
     BrandService,
     ModelService,
+    VoteTypeService,
   ],
   exports: [],
 })

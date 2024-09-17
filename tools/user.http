@@ -41,11 +41,11 @@ content-type: {{content_type}}
     "countryId": "9b11eea6-6871-4762-9171-a66a9bd8203b"
 }
 
-
 ### Get all brands
 GET {{base_url}}/brand
 
-
-
 ### Get all models
 GET {{base_url}}/model
+
+### Get all vote types
+GET {{base_url}}/vote-type

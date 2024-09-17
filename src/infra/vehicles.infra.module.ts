@@ -12,6 +12,8 @@ import {
   User,
   UserRepository,
   ModelRepository,
+  VoteType,
+  VoteTypeRepository,
 } from 'infra';
 
 @Module({
@@ -43,6 +45,11 @@ import {
       provide: 'MODEL_REPOSITORY',
       useClass: ModelRepository,
     },
+    {
+      useValue: DatasetRepository<VoteType>,
+      provide: 'VOTE_TYPE_REPOSITORY',
+      useClass: VoteTypeRepository,
+    },
   ],
   exports: [
     MockDataset,
@@ -70,6 +77,11 @@ import {
       useValue: DatasetRepository<Model>,
       provide: 'MODEL_REPOSITORY',
       useClass: ModelRepository,
+    },
+    {
+      useValue: DatasetRepository<VoteType>,
+      provide: 'VOTE_TYPE_REPOSITORY',
+      useClass: VoteTypeRepository,
     },
   ],
 })
