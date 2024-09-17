@@ -44,3 +44,8 @@ content-type: {{content_type}}
 
 ### Get all brands
 GET {{base_url}}/brand
+
+
+
+### Get all models
+GET {{base_url}}/model

@@ -6,11 +6,13 @@ import { countries } from '../seed/country.seed';
 import { Injectable } from '@nestjs/common';
 import { brands } from '../seed/brand.seed';
 import { Brand } from '../../entities/brand.entity';
+import { Model } from 'infra/entities/model.entity';
+import { models } from '../seed/model.seed';
 
 // import { BaseDataset } from '../dataset-base';
 
 @Injectable()
-export class MockDataset /*implements BaseDataset*/ {
+export class MockDataset {
   private static readonly _users: User[] = [];
   public readonly user = {
     getAll(): User[] {
@@ -111,6 +113,32 @@ export class MockDataset /*implements BaseDataset*/ {
       const index = MockDataset._brands.indexOf(brand);
 
       MockDataset._brands.splice(index, 1);
+    },
+  };
+
+  private static readonly _models: Model[] = [...models];
+  public readonly models = {
+    getAll(): Model[] {
+      return MockDataset._models;
+    },
+    getById(id: string): Model {
+      return MockDataset._models.find((brand) => brand.id === id);
+    },
+    save(entity: Model): void {
+      MockDataset._models.push(entity);
+    },
+    update(entity: Model): void {
+      const model = this.getById(entity.id);
+
+      model.name = entity.name;
+      model.brandId = entity.brandId;
+      model.brand = entity.brand;
+    },
+    delete(id: string): void {
+      const model = this.getById(id);
+      const index = MockDataset._models.indexOf(model);
+
+      MockDataset._models.splice(index, 1);
     },
   };
 }

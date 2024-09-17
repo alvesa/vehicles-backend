@@ -8,8 +8,10 @@ import {
   Locality,
   LocalityRepository,
   MockDataset,
+  Model,
   User,
   UserRepository,
+  ModelRepository,
 } from 'infra';
 
 @Module({
@@ -36,6 +38,11 @@ import {
       provide: 'BRAND_REPOSITORY',
       useClass: BrandRepository,
     },
+    {
+      useValue: DatasetRepository<Model>,
+      provide: 'MODEL_REPOSITORY',
+      useClass: ModelRepository,
+    },
   ],
   exports: [
     MockDataset,
@@ -58,6 +65,11 @@ import {
       useValue: DatasetRepository<Brand>,
       provide: 'BRAND_REPOSITORY',
       useClass: BrandRepository,
+    },
+    {
+      useValue: DatasetRepository<Model>,
+      provide: 'MODEL_REPOSITORY',
+      useClass: ModelRepository,
     },
   ],
 })
