@@ -49,3 +49,6 @@ GET {{base_url}}/model
 
 ### Get all vote types
 GET {{base_url}}/vote-type
+
+### Get all vote types
+GET {{base_url}}/fuel
