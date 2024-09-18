@@ -5,9 +5,17 @@ import { brands } from '../seed/brand.seed';
 import { models } from '../seed/model.seed';
 import { voteTypes } from '../seed/voteType.seed';
 import { fuels } from '../seed/fuel.seed';
-import { Brand, Country, Fuel, Locality, Model, User, VoteType } from 'infra';
-
-// import { BaseDataset } from '../dataset-base';
+import { versions } from '../seed/version.seed';
+import {
+  Brand,
+  Country,
+  Fuel,
+  Locality,
+  Model,
+  User,
+  Version,
+  VoteType,
+} from 'infra';
 
 @Injectable()
 export class MockDataset {
@@ -187,6 +195,30 @@ export class MockDataset {
       const index = MockDataset._fuels.indexOf(result);
 
       MockDataset._fuels.splice(index, 1);
+    },
+  };
+
+  private static readonly _versions: Version[] = [...versions];
+  public readonly versions = {
+    getAll(): Version[] {
+      return MockDataset._versions;
+    },
+    getById(id: string): Version {
+      return MockDataset._versions.find((item) => item.id === id);
+    },
+    save(entity: Version): void {
+      MockDataset._versions.push(entity);
+    },
+    update(entity: Version): void {
+      const result = this.getById(entity.id);
+
+      result.version = entity.version;
+    },
+    delete(id: string): void {
+      const result = this.getById(id);
+      const index = MockDataset._versions.indexOf(result);
+
+      MockDataset._versions.splice(index, 1);
     },
   };
 }

@@ -2,22 +2,26 @@ import { Module } from '@nestjs/common';
 import {
   BrandService,
   CountryService,
+  FuelService,
   LocalityService,
   ModelService,
   UserService,
   VehiclesDomainModule,
+  VersionService,
+  VoteTypeService,
 } from '../domain';
 import {
   BrandController,
   CountryController,
+  FuelController,
   LocalityController,
   ModelController,
   UserController,
+  VersionController,
+  VoteTypeController,
 } from 'application';
-import { VoteTypeController } from './controllers/voteType/voteType.controller';
-import { VoteTypeService } from 'domain/voteType.service';
-import { FuelController } from './controllers/fuel/fuel.controller';
-import { FuelService } from 'domain/fuel.service';
+import { BaseService } from 'domain/base.service';
+import { Version } from 'infra';
 
 @Module({
   imports: [VehiclesDomainModule],
@@ -29,6 +33,7 @@ import { FuelService } from 'domain/fuel.service';
     ModelController,
     VoteTypeController,
     FuelController,
+    VersionController,
   ],
   providers: [
     UserService,
@@ -38,6 +43,10 @@ import { FuelService } from 'domain/fuel.service';
     ModelService,
     VoteTypeService,
     FuelService,
+    {
+      provide: BaseService<Version>,
+      useClass: VersionService,
+    },
   ],
   exports: [],
 })

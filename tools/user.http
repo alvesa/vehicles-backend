@@ -50,5 +50,8 @@ GET {{base_url}}/model
 ### Get all vote types
 GET {{base_url}}/vote-type
 
-### Get all vote types
+### Get all fuels
 GET {{base_url}}/fuel
+
+### Get all versions
+GET {{base_url}}/version
