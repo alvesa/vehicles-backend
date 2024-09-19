@@ -1,5 +1,5 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { FuelDto, FuelService } from 'domain/fuel.service';
+import { FuelDto, FuelService } from 'domain/services/fuel.service';
 
 interface FuelRequest {
   name: string;

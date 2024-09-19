@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { OpinionDto, OpinionService } from 'domain/opinion.service';
+import { OpinionDto, OpinionService } from 'domain/services/opinion.service';
 
 export interface OpinionResponse extends OpinionDto {}
 

@@ -1,5 +1,5 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { BaseService } from 'domain/base.service';
+import { BaseService } from 'domain/services/base.service';
 import { Version } from 'infra';
 
 @Controller('version')

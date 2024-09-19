@@ -1,6 +1,6 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { UserRequest } from '../application';
+import { UserRequest } from '../../application';
 import { DatasetRepository, Locality, User } from 'infra';
 
 export class UserDto {

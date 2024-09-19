@@ -1,5 +1,5 @@
 import { Controller, Get } from '@nestjs/common';
-import { VoteTypeService } from 'domain/voteType.service';
+import { VoteTypeService } from 'domain/services/voteType.service';
 
 @Controller('vote-type')
 export class VoteTypeController {
