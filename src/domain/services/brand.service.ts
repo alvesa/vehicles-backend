@@ -3,6 +3,7 @@ import { Brand, DatasetRepository } from 'infra';
 import { randomUUID } from 'crypto';
 import { BrandRequest } from 'application';
 
+// TODO: include all dtos to a specific path
 export class BrandDto {
   id: string;
   name: string;
