@@ -63,7 +63,7 @@ export class UserService {
   }
 
   save(user: UserRequest): void {
-    const locality = this.localityRepository?.getAll()[0];
+    const locality = this.localityRepository.getById(user.localityId);
 
     this.userRepository.save({
       id: randomUUID(),
@@ -72,6 +72,7 @@ export class UserService {
       email: user.email,
       password: user.password,
       locality,
+      localityId: locality.id,
     });
   }
 }

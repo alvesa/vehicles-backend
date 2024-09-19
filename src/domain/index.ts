@@ -6,5 +6,7 @@ export * from './model.service';
 export * from './voteType.service';
 export * from './fuel.service';
 export * from './version.service';
+export * from './opinion.service';
+export * from './base.service';
 
 export * from './vehicles.domain.module';

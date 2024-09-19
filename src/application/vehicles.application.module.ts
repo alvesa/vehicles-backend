@@ -1,10 +1,12 @@
 import { Module } from '@nestjs/common';
 import {
+  BaseService,
   BrandService,
   CountryService,
   FuelService,
   LocalityService,
   ModelService,
+  OpinionService,
   UserService,
   VehiclesDomainModule,
   VersionService,
@@ -16,11 +18,11 @@ import {
   FuelController,
   LocalityController,
   ModelController,
+  OpinionController,
   UserController,
   VersionController,
   VoteTypeController,
 } from 'application';
-import { BaseService } from 'domain/base.service';
 import { Version } from 'infra';
 
 @Module({
@@ -34,6 +36,7 @@ import { Version } from 'infra';
     VoteTypeController,
     FuelController,
     VersionController,
+    OpinionController,
   ],
   providers: [
     UserService,
@@ -47,6 +50,7 @@ import { Version } from 'infra';
       provide: BaseService<Version>,
       useClass: VersionService,
     },
+    OpinionService,
   ],
   exports: [],
 })

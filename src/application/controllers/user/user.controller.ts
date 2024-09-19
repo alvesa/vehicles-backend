@@ -36,7 +36,7 @@ export class UserRequest {
   firstName: string;
   lastName: string;
   email: string;
-  locality?: Locality;
+  localityId: string;
   password: string;
 }
 

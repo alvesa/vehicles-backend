@@ -12,10 +12,12 @@ import {
   Fuel,
   Locality,
   Model,
+  Opinion,
   User,
   Version,
   VoteType,
 } from 'infra';
+import { opinions } from '../seed/opinion.seed';
 
 @Injectable()
 export class MockDataset {
@@ -219,6 +221,37 @@ export class MockDataset {
       const index = MockDataset._versions.indexOf(result);
 
       MockDataset._versions.splice(index, 1);
+    },
+  };
+
+  private static readonly _opinions: Opinion[] = [...opinions];
+  public readonly opinions = {
+    getAll(): Opinion[] {
+      return MockDataset._opinions;
+    },
+    getById(id: string): Opinion {
+      return MockDataset._opinions.find((item) => item.id === id);
+    },
+    save(entity: Opinion): void {
+      MockDataset._opinions.push(entity);
+    },
+    update(entity: Opinion): void {
+      const result = this.getById(entity.id);
+
+      result.title = entity.title;
+      result.negatives = entity.negatives;
+      result.positives = entity.positives;
+      result.problems = entity.problems;
+      result.general = entity.general;
+      result.vehicleId = entity.vehicleId;
+      result.voteTypeOpinionId = entity.voteTypeOpinionId;
+      result.userOpinionId = entity.userOpinionId;
+    },
+    delete(id: string): void {
+      const result = this.getById(id);
+      const index = MockDataset._opinions.indexOf(result);
+
+      MockDataset._opinions.splice(index, 1);
     },
   };
 }

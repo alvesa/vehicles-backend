@@ -6,5 +6,6 @@ export * from './controllers/model/model.controller';
 export * from './controllers/fuel/fuel.controller';
 export * from './controllers/version/version.controller';
 export * from './controllers/voteType/voteType.controller';
+export * from './controllers/opinion/opinion.controller';
 
 export * from './vehicles.application.module';

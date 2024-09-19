@@ -55,3 +55,9 @@ GET {{base_url}}/fuel
 
 ### Get all versions
 GET {{base_url}}/version
+
+### Get all opinions
+GET {{base_url}}/opinion
+
+### Get opinion by id
+GET {{base_url}}/opinion/1
