@@ -1,13 +1,15 @@
+import { randomUUID } from 'crypto';
 import { Country } from './country.entity';
 
 export class Locality {
   id: string;
   name: string;
+  countryId: string;
   country: Country;
 
-  constructor(id: string, name: string, country: Country) {
-    this.id = id;
+  constructor(name: string, countryId: string) {
+    this.id = randomUUID();
     this.name = name;
-    this.country = country;
+    this.countryId = countryId;
   }
 }

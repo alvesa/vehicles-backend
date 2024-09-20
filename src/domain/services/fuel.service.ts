@@ -1,6 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
 import { DatasetRepository, Fuel } from 'infra';
+import { BaseService } from './base.service';
 
 export class FuelDto {
   id: string;
@@ -15,11 +16,13 @@ export class FuelDto {
 }
 
 @Injectable()
-export class FuelService {
+export class FuelService extends BaseService<Fuel> {
   constructor(
     @Inject('FUEL_REPOSITORY')
     private readonly fuelRepository: DatasetRepository<Fuel>,
-  ) {}
+  ) {
+    super();
+  }
 
   getAll(): FuelDto[] {
     return this.fuelRepository.getAll();
@@ -29,7 +32,13 @@ export class FuelService {
     return this.fuelRepository.getById(id);
   }
 
-  addFuel(entity: FuelDto): void {
+  add(entity: Fuel): void {
     this.fuelRepository.save(new Fuel(entity.name, entity.active));
+  }
+  update(entity: Fuel): void {
+    this.fuelRepository.update(new Fuel(entity.name, entity.active));
+  }
+  delete(id: string): void {
+    this.fuelRepository.delete(id);
   }
 }

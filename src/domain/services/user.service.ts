@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { randomUUID } from 'crypto';
-import { UserRequest } from '../../application';
 import { DatasetRepository, Locality, User } from 'infra';
+import { BaseService } from './base.service';
 
 export class UserDto {
   id: string;
@@ -27,52 +27,41 @@ export class UserDto {
 }
 
 @Injectable()
-export class UserService {
+export class UserService extends BaseService<User> {
   constructor(
     @Inject('USER_REPOSITORY')
     private readonly userRepository: DatasetRepository<User>,
     @Inject('LOCALITY_REPOSITORY')
     private readonly localityRepository: DatasetRepository<Locality>,
-  ) {}
-
-  getAll(): UserDto[] {
-    const users = this.userRepository.getAll();
-
-    return users?.map((user: UserDto) => ({
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      locality: user.locality,
-      password: user.password,
-    }));
+  ) {
+    super();
   }
 
-  getById(id: string): UserDto {
-    const user = this.userRepository.getById(id);
-
-    if (!user) return;
-
-    return new UserDto(
-      user.id,
-      user.firstName,
-      user.lastName,
-      user.email,
-      user.password,
-    );
+  getAll(): User[] {
+    return this.userRepository.getAll();
   }
 
-  save(user: UserRequest): void {
-    const locality = this.localityRepository.getById(user.localityId);
+  getById(id: string): User {
+    return this.userRepository.getById(id);
+  }
+
+  add(entity: User): void {
+    const locality = this.localityRepository.getById(entity.localityId);
 
     this.userRepository.save({
       id: randomUUID(),
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      password: user.password,
+      firstName: entity.firstName,
+      lastName: entity.lastName,
+      email: entity.email,
+      password: entity.password,
       locality,
       localityId: locality.id,
     });
+  }
+  update(entity: User): void {
+    console.log({ entity });
+  }
+  delete(id: string): void {
+    console.log({ id });
   }
 }

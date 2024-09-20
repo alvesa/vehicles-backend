@@ -1,11 +1,13 @@
 import { Controller, Get, Param } from '@nestjs/common';
-import { OpinionDto, OpinionService } from 'domain/services/opinion.service';
+import { BaseService } from 'domain/services/base.service';
+import { OpinionDto } from 'domain/services/opinion.service';
+import { Opinion } from 'infra';
 
 export interface OpinionResponse extends OpinionDto {}
 
 @Controller('opinion')
 export class OpinionController {
-  constructor(private readonly opinionService: OpinionService) {}
+  constructor(private readonly opinionService: BaseService<Opinion>) {}
 
   @Get()
   getAll(): OpinionResponse[] {

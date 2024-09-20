@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
-import { BrandService } from '../../../domain';
+import { BaseService } from '../../../domain';
+import { Brand } from 'infra';
 
 export interface BrandRequest {
   name: string;
@@ -18,7 +19,7 @@ interface BrandResponse {
 
 @Controller('brand')
 export class BrandController {
-  constructor(private readonly brandService: BrandService) {}
+  constructor(private readonly brandService: BaseService<Brand>) {}
 
   @Get()
   getAll(): BrandResponse[] {
@@ -31,8 +32,8 @@ export class BrandController {
   }
 
   @Post()
-  addBrand(@Body() request: BrandRequest): void {
-    this.brandService.addBrand(request);
+  addBrand(@Body() request: Brand): void {
+    this.brandService.add(request);
   }
 
   @Patch()

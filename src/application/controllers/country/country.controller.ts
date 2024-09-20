@@ -1,5 +1,6 @@
 import { Body, Controller, Get, Param, Post } from '@nestjs/common';
-import { CountryService } from '../../../domain';
+import { BaseService } from '../../../domain';
+import { Country } from 'infra';
 
 interface CountryRequest {
   name: string;
@@ -13,11 +14,11 @@ export interface CountryResponse {
 
 @Controller('country')
 export class CountryController {
-  constructor(private readonly countryService: CountryService) {}
+  constructor(private readonly countryService: BaseService<Country>) {}
 
   @Get()
   getAllCountries(): CountryResponse[] {
-    return this.countryService.getAllCountries();
+    return this.countryService.getAll();
   }
 
   @Get(':id')
@@ -33,6 +34,6 @@ export class CountryController {
 
   @Post('')
   addCountry(@Body() { name }: CountryRequest): void {
-    this.countryService.addCountry(name);
+    this.countryService.add(new Country(name, true));
   }
 }

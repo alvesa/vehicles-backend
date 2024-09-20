@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Post } from '@nestjs/common';
-import { LocalityService } from '../../../domain';
+import { BaseService } from '../../../domain';
 import { CountryResponse } from 'application';
+import { Locality } from 'infra';
 
 export interface LocalityRequest {
   name: string;
@@ -14,7 +15,7 @@ interface LocalityResponse {
 
 @Controller('locality')
 export class LocalityController {
-  constructor(private readonly localityService: LocalityService) {}
+  constructor(private readonly localityService: BaseService<Locality>) {}
 
   @Get()
   getAll(): LocalityResponse[] {
@@ -22,7 +23,7 @@ export class LocalityController {
   }
 
   @Post()
-  addLocality(@Body() request: LocalityRequest): void {
-    this.localityService.addLocality(request);
+  addLocality(@Body() request: Locality): void {
+    this.localityService.add(request);
   }
 }

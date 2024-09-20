@@ -1,10 +1,12 @@
+import { randomUUID } from 'crypto';
+
 export class Country {
   id: string;
   name: string;
   active: boolean;
 
-  constructor(id: string, name: string, active: boolean) {
-    this.id = id;
+  constructor(name: string, active: boolean = true) {
+    this.id = randomUUID();
     this.name = name;
     this.active = active;
   }

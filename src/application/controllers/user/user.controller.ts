@@ -6,8 +6,8 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { UserService } from '../../../domain';
-import { Locality } from 'infra';
+import { BaseService } from '../../../domain';
+import { Locality, User } from 'infra';
 
 export class UserResponse {
   id: string;
@@ -32,17 +32,11 @@ export class UserResponse {
   }
 }
 
-export class UserRequest {
-  firstName: string;
-  lastName: string;
-  email: string;
-  localityId: string;
-  password: string;
-}
+export class UserRequest extends User {}
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: UserService) {}
+  constructor(private readonly userService: BaseService<User>) {}
 
   @Get()
   getAllUsers(): UserResponse[] {
@@ -77,6 +71,6 @@ export class UserController {
 
   @Post()
   addUser(@Body() user: UserRequest): void {
-    return this.userService.save(user);
+    return this.userService.add(user);
   }
 }

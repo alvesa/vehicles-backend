@@ -1,6 +1,7 @@
 import { Controller, Get, Param } from '@nestjs/common';
 // TODO: verify service imports
-import { ModelService } from '../../../domain';
+import { BaseService } from '../../../domain';
+import { Model } from 'infra';
 
 interface ModelResponse {
   id: string;
@@ -14,7 +15,7 @@ interface ModelResponse {
 
 @Controller('model')
 export class ModelController {
-  constructor(private readonly modelService: ModelService) {}
+  constructor(private readonly modelService: BaseService<Model>) {}
 
   @Get()
   getAll(): ModelResponse[] {

@@ -1,33 +1,34 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Country, DatasetRepository, Locality } from '../../infra';
-import { CountryDto } from '..';
-import { randomUUID } from 'crypto';
-import { LocalityRequest } from 'application';
-
-interface LocalityDto {
-  name: string;
-  country: CountryDto;
-}
+import { BaseService } from '../services/base.service';
 
 @Injectable()
-export class LocalityService {
+export class LocalityService extends BaseService<Locality> {
   constructor(
     @Inject('LOCALITY_REPOSITORY')
     private readonly localityRepository: DatasetRepository<Locality>,
     @Inject('COUNTRY_REPOSITORY')
     private readonly countryRepository: DatasetRepository<Country>,
-  ) {}
+  ) {
+    super();
+  }
 
-  getAll(): LocalityDto[] {
+  getAll(): Locality[] {
     return this.localityRepository.getAll();
   }
 
-  getById(id: string): LocalityDto {
+  getById(id: string): Locality {
     return this.localityRepository.getById(id);
   }
 
-  addLocality({ name, countryId }: LocalityRequest): void {
-    const country = this.countryRepository.getById(countryId);
-    this.localityRepository.save(new Locality(randomUUID(), name, country));
+  add(entity: Locality): void {
+    const country = this.countryRepository.getById(entity.countryId);
+    this.localityRepository.save(new Locality(entity.name, country.id));
+  }
+  update(entity: Locality): void {
+    console.log({ entity });
+  }
+  delete(id: string): void {
+    console.log({ id });
   }
 }

@@ -1,9 +1,29 @@
 import { Country } from 'infra/entities/country.entity';
 
 export const countries: Country[] = [
-  new Country('1', 'country1', true),
-  new Country('2', 'country2', true),
-  new Country('3', 'country3', false),
-  new Country('4', 'country4', true),
-  new Country('5', 'country5', false),
+  {
+    id: '1',
+    name: 'country1',
+    active: true,
+  },
+  {
+    id: '2',
+    name: 'country2',
+    active: true,
+  },
+  {
+    id: '3',
+    name: 'country3',
+    active: true,
+  },
+  {
+    id: '4',
+    name: 'country4',
+    active: true,
+  },
+  {
+    id: '5',
+    name: 'country5',
+    active: true,
+  },
 ];
