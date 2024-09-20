@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
 import { BaseService } from '../../../domain';
 import { CountryResponse } from 'application';
 import { Locality } from 'infra';
@@ -15,7 +15,10 @@ interface LocalityResponse {
 
 @Controller('locality')
 export class LocalityController {
-  constructor(private readonly localityService: BaseService<Locality>) {}
+  constructor(
+    @Inject('LOCALITY_SERVICE')
+    private readonly localityService: BaseService<Locality>,
+  ) {}
 
   @Get()
   getAll(): LocalityResponse[] {

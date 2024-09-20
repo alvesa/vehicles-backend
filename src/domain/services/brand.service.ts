@@ -1,20 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Brand, DatasetRepository } from 'infra';
-import { randomUUID } from 'crypto';
 import { BaseService } from './base.service';
 
 // TODO: include all dtos to a specific path
-export class BrandDto {
-  id: string;
-  name: string;
-  active: boolean;
-
-  constructor(name: string, active: boolean = true) {
-    this.id = randomUUID();
-    this.name = name;
-    this.active = active;
-  }
-}
 
 @Injectable()
 export class BrandService extends BaseService<Brand> {
@@ -25,11 +13,11 @@ export class BrandService extends BaseService<Brand> {
     super();
   }
 
-  getAll(): BrandDto[] {
+  getAll(): Brand[] {
     return this.brandRepository.getAll();
   }
 
-  getById(id: string): BrandDto {
+  getById(id: string): Brand {
     return this.brandRepository.getById(id);
   }
 
@@ -37,7 +25,7 @@ export class BrandService extends BaseService<Brand> {
     this.brandRepository.save(new Brand(entity.name));
   }
 
-  update(entity: BrandDto): void {
+  update(entity: Brand): void {
     this.brandRepository.update(entity);
   }
 

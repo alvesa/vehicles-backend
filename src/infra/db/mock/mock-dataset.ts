@@ -14,10 +14,12 @@ import {
   Model,
   Opinion,
   User,
+  Vehicle,
   Version,
   VoteType,
 } from 'infra';
 import { opinions } from '../seed/opinion.seed';
+import { vehicles } from '../seed/vehicle.seed';
 
 @Injectable()
 export class MockDataset {
@@ -252,6 +254,38 @@ export class MockDataset {
       const index = MockDataset._opinions.indexOf(result);
 
       MockDataset._opinions.splice(index, 1);
+    },
+  };
+
+  private static readonly _vehicles: Vehicle[] = [...vehicles];
+  public readonly vehicles = {
+    getAll(): Vehicle[] {
+      return MockDataset._vehicles;
+    },
+    getById(id: string): Vehicle {
+      return MockDataset._vehicles.find((item) => item.id === id);
+    },
+    save(entity: Vehicle): void {
+      MockDataset._vehicles.push(entity);
+    },
+    update(entity: Vehicle): void {
+      const result = this.getById(entity.id);
+
+      result.modelId = entity.modelId;
+      result.localityId = entity.localityId;
+      result.versionId = entity.versionId;
+      result.fuelId = entity.fuelId;
+      result.year = entity.year;
+      result.month = entity.month;
+      result.kms = entity.kms;
+      result.hp = entity.hp;
+      result.active = entity.active;
+    },
+    delete(id: string): void {
+      const result = this.getById(id);
+      const index = MockDataset._vehicles.indexOf(result);
+
+      MockDataset._vehicles.splice(index, 1);
     },
   };
 }

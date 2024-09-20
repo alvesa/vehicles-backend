@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  Param,
+  Patch,
+  Post,
+} from '@nestjs/common';
 import { BaseService } from '../../../domain';
 import { Brand } from 'infra';
 
@@ -19,7 +27,10 @@ interface BrandResponse {
 
 @Controller('brand')
 export class BrandController {
-  constructor(private readonly brandService: BaseService<Brand>) {}
+  constructor(
+    @Inject('BRAND_SERVICE')
+    private readonly brandService: BaseService<Brand>,
+  ) {}
 
   @Get()
   getAll(): BrandResponse[] {

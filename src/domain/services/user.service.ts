@@ -3,29 +3,6 @@ import { randomUUID } from 'crypto';
 import { DatasetRepository, Locality, User } from 'infra';
 import { BaseService } from './base.service';
 
-export class UserDto {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  locality?: Locality;
-  password: string;
-
-  constructor(
-    id: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password: string,
-  ) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-  }
-}
-
 @Injectable()
 export class UserService extends BaseService<User> {
   constructor(

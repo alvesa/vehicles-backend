@@ -2,12 +2,6 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Country, DatasetRepository } from 'infra';
 import { BaseService } from './base.service';
 
-export interface CountryDto {
-  id: string;
-  name: string;
-  active: boolean;
-}
-
 @Injectable()
 export class CountryService extends BaseService<Country> {
   constructor(
@@ -17,7 +11,7 @@ export class CountryService extends BaseService<Country> {
     super();
   }
 
-  getById(id: string): CountryDto {
+  getById(id: string): Country {
     const country = this.countryRepository.getById(id);
 
     if (!country) throw new NotFoundException('Country not found');

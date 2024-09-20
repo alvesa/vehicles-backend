@@ -18,7 +18,9 @@ import {
   Opinion,
   FuelRepository,
   OpinionRepository,
+  Vehicle,
 } from 'infra';
+import { VehicleRepository } from './repositories/vehicle/vehicle.repository';
 
 @Module({
   imports: [],
@@ -64,6 +66,11 @@ import {
       provide: 'OPINION_REPOSITORY',
       useClass: OpinionRepository,
     },
+    {
+      useValue: DatasetRepository<Vehicle>,
+      provide: 'VEHICLE_REPOSITORY',
+      useClass: VehicleRepository,
+    },
   ],
   exports: [
     MockDataset,
@@ -106,6 +113,11 @@ import {
       useValue: DatasetRepository<Opinion>,
       provide: 'OPINION_REPOSITORY',
       useClass: OpinionRepository,
+    },
+    {
+      useValue: DatasetRepository<Vehicle>,
+      provide: 'VEHICLE_REPOSITORY',
+      useClass: VehicleRepository,
     },
   ],
 })

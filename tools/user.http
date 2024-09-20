@@ -62,3 +62,6 @@ GET {{base_url}}/opinion
 
 ### Get opinion by id
 GET {{base_url}}/opinion/1
+
+### Get all vehicles
+GET {{base_url}}/vehicle

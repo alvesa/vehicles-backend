@@ -11,6 +11,7 @@ import {
   VersionController,
   VoteTypeController,
 } from 'application';
+import { VehicleController } from './controllers/vehicle/vehicle.controller';
 
 @Module({
   imports: [VehiclesDomainModule],
@@ -24,6 +25,7 @@ import {
     FuelController,
     VersionController,
     OpinionController,
+    VehicleController,
   ],
   providers: [],
   exports: [],

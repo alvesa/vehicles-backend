@@ -2,8 +2,6 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DatasetRepository, Opinion } from 'infra';
 import { BaseService } from './base.service';
 
-export interface OpinionDto extends Opinion {}
-
 @Injectable()
 export class OpinionService extends BaseService<Opinion> {
   constructor(
@@ -13,11 +11,11 @@ export class OpinionService extends BaseService<Opinion> {
     super();
   }
 
-  getAll(): OpinionDto[] {
+  getAll(): Opinion[] {
     return this.ds.getAll();
   }
 
-  getById(id: string): OpinionDto {
+  getById(id: string): Opinion {
     return this.ds.getById(id);
   }
 

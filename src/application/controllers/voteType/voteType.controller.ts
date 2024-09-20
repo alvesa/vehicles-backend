@@ -1,10 +1,13 @@
-import { Controller, Get } from '@nestjs/common';
+import { Controller, Get, Inject } from '@nestjs/common';
 import { BaseService } from 'domain/services/base.service';
 import { VoteType } from 'infra';
 
 @Controller('vote-type')
 export class VoteTypeController {
-  constructor(private readonly voteTypeService: BaseService<VoteType>) {}
+  constructor(
+    @Inject('VOTE_TYPE_SERVICE')
+    private readonly voteTypeService: BaseService<VoteType>,
+  ) {}
 
   @Get()
   getAllVoteTypes() {

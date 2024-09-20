@@ -1,10 +1,13 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Controller, Get, Inject, Param } from '@nestjs/common';
 import { BaseService } from 'domain/services/base.service';
 import { Version } from 'infra';
 
 @Controller('version')
 export class VersionController {
-  constructor(private readonly versionService: BaseService<Version>) {}
+  constructor(
+    @Inject('VERSION_SERVICE')
+    private readonly versionService: BaseService<Version>,
+  ) {}
 
   @Get()
   getAll(): Version[] {

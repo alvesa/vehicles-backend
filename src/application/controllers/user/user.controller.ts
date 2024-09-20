@@ -1,72 +1,24 @@
-import {
-  Body,
-  Controller,
-  Get,
-  NotFoundException,
-  Param,
-  Post,
-} from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { BaseService } from '../../../domain';
-import { Locality, User } from 'infra';
-
-export class UserResponse {
-  id: string;
-  firstName: string;
-  lastName: string;
-  email: string;
-  locality?: Locality;
-  password?: string;
-
-  constructor(
-    id: string,
-    firstName: string,
-    lastName: string,
-    email: string,
-    password?: string,
-  ) {
-    this.id = id;
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.password = password;
-  }
-}
+import { User } from 'infra';
 
 export class UserRequest extends User {}
 
 @Controller('user')
 export class UserController {
-  constructor(private readonly userService: BaseService<User>) {}
+  constructor(
+    @Inject('USER_SERVICE')
+    private readonly userService: BaseService<User>,
+  ) {}
 
   @Get()
-  getAllUsers(): UserResponse[] {
-    const users = this.userService.getAll();
-
-    if (!users?.length) throw new NotFoundException('Users not found');
-
-    return users.map((user: UserResponse) => ({
-      id: user.id,
-      firstName: user.firstName,
-      lastName: user.lastName,
-      email: user.email,
-      locality: user.locality,
-      // password: user.password,
-    }));
+  getAllUsers(): User[] {
+    return this.userService.getAll();
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string): UserResponse {
-    const user = this.userService.getById(id);
-
-    if (!user) throw new NotFoundException('User not found');
-
-    return new UserResponse(
-      user.id,
-      user.firstName,
-      user.lastName,
-      user.email,
-      user.password,
-    );
+  getUserById(@Param('id') id: string): User {
+    return this.userService.getById(id);
   }
 
   @Post()
