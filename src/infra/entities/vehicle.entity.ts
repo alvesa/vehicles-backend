@@ -3,6 +3,7 @@ import { Fuel } from './fuel.entity';
 import { Model } from './model.entity';
 import { Version } from './version.entity';
 import { randomUUID } from 'crypto';
+import { Gear } from 'infra';
 
 export class Vehicle {
   id: string;
@@ -18,6 +19,8 @@ export class Vehicle {
   month: string;
   kms: string;
   hp: string;
+  gearId: string;
+  gear: Gear;
   active: boolean;
 
   constructor(
@@ -29,6 +32,7 @@ export class Vehicle {
     monthRegistry: string,
     kms: string,
     hp: string,
+    gearId: string,
     active: boolean,
   ) {
     this.id = randomUUID();
@@ -40,6 +44,7 @@ export class Vehicle {
     this.month = monthRegistry;
     this.kms = kms;
     this.hp = hp;
+    this.gearId = gearId;
     this.active = active;
   }
 }

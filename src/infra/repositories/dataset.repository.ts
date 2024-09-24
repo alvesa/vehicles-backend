@@ -1,4 +1,5 @@
 import { Injectable } from '@nestjs/common';
+import { User } from 'infra';
 
 export interface IDatasetRepository {
   getAll(): any;
@@ -15,4 +16,12 @@ export abstract class DatasetRepository<T> implements IDatasetRepository {
   abstract save(entity: T): void;
   abstract update(entity: T): void;
   abstract delete(id: string): void;
+}
+
+@Injectable()
+export abstract class UserDatasetRepository extends DatasetRepository<User> {
+  constructor() {
+    super();
+  }
+  abstract getByEmail(email: string): User;
 }

@@ -7,7 +7,6 @@ import {
   Locality,
   Model,
   Opinion,
-  User,
   Vehicle,
   VehiclesInfraModule,
   Version,
@@ -27,6 +26,7 @@ import {
   ModelService,
   GearService,
   VehicleService,
+  UserBaseService,
 } from './';
 
 const opinionServiceProvider = {
@@ -37,7 +37,7 @@ const opinionServiceProvider = {
 
 const userServiceProvider = {
   provide: 'USER_SERVICE',
-  useValue: BaseService<User>,
+  useValue: UserBaseService,
   useClass: UserService,
 };
 

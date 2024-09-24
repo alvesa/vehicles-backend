@@ -1,6 +1,6 @@
 import { localities } from '../seed/locality.seed';
 import { countries } from '../seed/country.seed';
-import { Injectable } from '@nestjs/common';
+import { HttpException, Injectable } from '@nestjs/common';
 import { brands } from '../seed/brand.seed';
 import { models } from '../seed/model.seed';
 import { voteTypes } from '../seed/vote-type.seed';
@@ -28,10 +28,22 @@ export class MockDataset {
   private static readonly _users: User[] = [];
   public readonly user = {
     getAll(): User[] {
-      return MockDataset._users;
+      const users = MockDataset._users;
+
+      if (!users.length) {
+        throw new HttpException('Users not found', 404);
+      }
+
+      return users;
     },
     getById(id: string): User {
-      return MockDataset._users.find((user) => user.id === id);
+      const result = MockDataset._users.find((user) => user.id === id);
+
+      if (!result) {
+        throw new HttpException('User not found', 404);
+      }
+
+      return result;
     },
     save(entity: User): void {
       MockDataset._users.push(entity);
@@ -50,6 +62,9 @@ export class MockDataset {
       const index = super._users.indexOf(user);
 
       super._users.splice(index, 1);
+    },
+    getByEmail(email: string): User {
+      return MockDataset._users.find((user) => user.email === email);
     },
   };
 

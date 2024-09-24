@@ -9,7 +9,6 @@ import {
   LocalityRepository,
   MockDataset,
   Model,
-  User,
   UserRepository,
   ModelRepository,
   VoteType,
@@ -20,12 +19,13 @@ import {
   OpinionRepository,
   Vehicle,
   Gear,
+  UserDatasetRepository,
 } from 'infra';
 import { VehicleRepository } from './repositories/vehicle/vehicle.repository';
 import { GearRespository } from './repositories/gear/gear.repository';
 
 const userRepoProvider = {
-  useValue: DatasetRepository<User>,
+  useValue: UserDatasetRepository,
   provide: 'USER_REPOSITORY',
   useClass: UserRepository,
 };
