@@ -12,6 +12,7 @@ import {
   VoteTypeController,
 } from 'application';
 import { VehicleController } from './controllers/vehicle/vehicle.controller';
+import { GearController } from './controllers/gear/gear.controller';
 
 @Module({
   imports: [VehiclesDomainModule],
@@ -26,6 +27,7 @@ import { VehicleController } from './controllers/vehicle/vehicle.controller';
     VersionController,
     OpinionController,
     VehicleController,
+    GearController,
   ],
   providers: [],
   exports: [],

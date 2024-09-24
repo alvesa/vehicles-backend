@@ -1,5 +1,5 @@
 import { Opinion } from 'infra';
-import { voteTypes } from './voteType.seed';
+import { voteTypes } from './vote-type.seed';
 import { vehicles } from './vehicle.seed';
 import { users } from './user.seed';
 

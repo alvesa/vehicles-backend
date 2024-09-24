@@ -3,13 +3,17 @@ import { countries } from '../seed/country.seed';
 import { Injectable } from '@nestjs/common';
 import { brands } from '../seed/brand.seed';
 import { models } from '../seed/model.seed';
-import { voteTypes } from '../seed/voteType.seed';
+import { voteTypes } from '../seed/vote-type.seed';
 import { fuels } from '../seed/fuel.seed';
 import { versions } from '../seed/version.seed';
+import { opinions } from '../seed/opinion.seed';
+import { vehicles } from '../seed/vehicle.seed';
+import { gears } from '../seed/gear.seed';
 import {
   Brand,
   Country,
   Fuel,
+  Gear,
   Locality,
   Model,
   Opinion,
@@ -18,8 +22,6 @@ import {
   Version,
   VoteType,
 } from 'infra';
-import { opinions } from '../seed/opinion.seed';
-import { vehicles } from '../seed/vehicle.seed';
 
 @Injectable()
 export class MockDataset {
@@ -286,6 +288,31 @@ export class MockDataset {
       const index = MockDataset._vehicles.indexOf(result);
 
       MockDataset._vehicles.splice(index, 1);
+    },
+  };
+
+  private static readonly _gears: Gear[] = [...gears];
+  public readonly gears = {
+    getAll(): Gear[] {
+      return MockDataset._gears;
+    },
+    getById(id: string): Gear {
+      return MockDataset._gears.find((item) => item.id === id);
+    },
+    save(entity: Gear): void {
+      MockDataset._gears.push(entity);
+    },
+    update(entity: Gear): void {
+      const result = this.getById(entity.id);
+
+      result.name = entity.name;
+      result.active = entity.active;
+    },
+    delete(id: string): void {
+      const result = this.getById(id);
+      const index = MockDataset._gears.indexOf(result);
+
+      MockDataset._gears.splice(index, 1);
     },
   };
 }

@@ -65,3 +65,7 @@ GET {{base_url}}/opinion/1
 
 ### Get all vehicles
 GET {{base_url}}/vehicle
+
+
+### Get all gears
+GET {{base_url}}/gear

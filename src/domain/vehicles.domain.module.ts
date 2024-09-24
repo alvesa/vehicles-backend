@@ -3,6 +3,7 @@ import {
   Brand,
   Country,
   Fuel,
+  Gear,
   Locality,
   Model,
   Opinion,
@@ -24,8 +25,9 @@ import {
   LocalityService,
   BrandService,
   ModelService,
+  GearService,
+  VehicleService,
 } from './';
-import { VehicleService } from './services/vehicle.service';
 
 const opinionServiceProvider = {
   provide: 'OPINION_SERVICE',
@@ -86,6 +88,12 @@ const fuelServiceProvider = {
   useValue: BaseService<Fuel>,
   useClass: FuelService,
 };
+
+const gearServiceProvider = {
+  provide: 'GEAR_SERVICE',
+  useValue: BaseService<Gear>,
+  useClass: GearService,
+};
 @Module({
   imports: [VehiclesInfraModule],
   providers: [
@@ -100,6 +108,7 @@ const fuelServiceProvider = {
     vehicleServiceProvider,
     voteTypeServiceProvider,
     fuelServiceProvider,
+    gearServiceProvider,
   ],
   exports: [
     opinionServiceProvider,
@@ -113,6 +122,7 @@ const fuelServiceProvider = {
     vehicleServiceProvider,
     voteTypeServiceProvider,
     fuelServiceProvider,
+    gearServiceProvider,
   ],
 })
 export class VehiclesDomainModule {}
