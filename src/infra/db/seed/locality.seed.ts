@@ -1,4 +1,5 @@
-import { countries, Locality } from 'infra';
+import { Locality } from '../../entities/locality.entity';
+import { countries } from './country.seed';
 
 export const localities: Locality[] = [
   {

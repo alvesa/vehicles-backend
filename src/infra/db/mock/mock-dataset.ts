@@ -1,6 +1,6 @@
 import { localities } from '../seed/locality.seed';
 import { countries } from '../seed/country.seed';
-import { HttpException, Injectable } from '@nestjs/common';
+import { Injectable } from '@nestjs/common';
 import { brands } from '../seed/brand.seed';
 import { models } from '../seed/model.seed';
 import { voteTypes } from '../seed/vote-type.seed';
@@ -30,18 +30,10 @@ export class MockDataset {
     getAll(): User[] {
       const users = MockDataset._users;
 
-      if (!users.length) {
-        throw new HttpException('Users not found', 404);
-      }
-
       return users;
     },
     getById(id: string): User {
       const result = MockDataset._users.find((user) => user.id === id);
-
-      if (!result) {
-        throw new HttpException('User not found', 404);
-      }
 
       return result;
     },
