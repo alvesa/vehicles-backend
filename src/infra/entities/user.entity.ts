@@ -16,6 +16,7 @@ export class User {
     return this._email;
   }
   public set email(email: string) {
+    // TODO: Redo exception return
     if (!email) {
       throw new BadRequestException('Email is required');
     }

@@ -40,7 +40,7 @@ describe('UserRepository', () => {
   });
 
   it('should return all users when there are users registered', () => {
-    repository.save(
+    const savedUser = repository.save(
       new User(
         'any_name',
         'any_last_name',
@@ -52,8 +52,9 @@ describe('UserRepository', () => {
     );
     const users = repository.getAll();
     expect(users).toHaveLength(1);
-    const user = mockDb.user.getById(users[0].id);
-    expect(repository.getById(user.id)).toEqual(user);
+
+    const user = repository.getById(savedUser);
+    expect(repository.getById(user.id)).toEqual(users[0]);
   });
 
   it('should return an user by email', () => {
