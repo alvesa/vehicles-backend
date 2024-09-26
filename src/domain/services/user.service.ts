@@ -1,5 +1,4 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { randomUUID } from 'crypto';
 import {
   DatasetRepository,
   Locality,
@@ -7,40 +6,7 @@ import {
   UserDatasetRepository,
 } from 'infra';
 import { UserBaseService } from './base.service';
-
-export class UserDto extends User {
-  firstName: string;
-  lastName: string;
-  email: string;
-  localityId: string;
-  locality: Locality;
-  password: string;
-
-  constructor(
-    firstName: string,
-    lastName: string,
-    email: string,
-    localityId: string,
-    locality: Locality,
-    password: string,
-  ) {
-    super(
-      randomUUID(),
-      firstName,
-      lastName,
-      email,
-      localityId,
-      locality,
-      password,
-    );
-    this.firstName = firstName;
-    this.lastName = lastName;
-    this.email = email;
-    this.localityId = localityId;
-    this.locality = locality;
-    this.password = password;
-  }
-}
+import { UserDto } from 'domain/dtos/user.dto';
 
 @Injectable()
 export class UserService extends UserBaseService {
@@ -62,11 +28,8 @@ export class UserService extends UserBaseService {
   }
 
   add(entity: UserDto): void {
-    const id = randomUUID();
-
     this.userRepository.save(
       new User(
-        id,
         entity.firstName,
         entity.lastName,
         entity.email,
@@ -77,10 +40,10 @@ export class UserService extends UserBaseService {
     );
   }
   update(entity: User): void {
-    console.log({ entity });
+    this.userRepository.update(entity.id, entity);
   }
   delete(id: string): void {
-    console.log({ id });
+    this.userRepository.delete(id);
   }
 
   getByEmail(email: string): User {

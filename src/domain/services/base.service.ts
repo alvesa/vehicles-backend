@@ -1,3 +1,4 @@
+import { UserDto } from '..//dtos/user.dto';
 import { User } from 'infra';
 
 export abstract class BaseService<T> {
@@ -8,6 +9,6 @@ export abstract class BaseService<T> {
   abstract delete(id: string): void;
 }
 
-export abstract class UserBaseService extends BaseService<User> {
+export abstract class UserBaseService extends BaseService<UserDto> {
   abstract getByEmail(email: string): User;
 }

@@ -13,10 +13,10 @@ export class OpinionRepository extends DatasetRepository<Opinion> {
   getById(id: string): Opinion {
     return this.mockDb.opinions.getById(id);
   }
-  save(entity: Opinion): void {
-    this.mockDb.opinions.save(entity);
+  save(entity: Opinion): string {
+    return this.mockDb.opinions.save(entity);
   }
-  update(entity: Opinion): void {
+  update(id: string, entity: Opinion): void {
     this.mockDb.opinions.update(entity);
   }
   delete(id: string): void {

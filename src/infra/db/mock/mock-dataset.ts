@@ -37,26 +37,32 @@ export class MockDataset {
 
       return result;
     },
-    save(entity: User): void {
+    save(entity: User): string {
       MockDataset._users.push(entity);
+      return entity.id;
     },
-    update(entity: User): void {
-      const user = this.getById(entity.id);
+    update(id: string, entity: User): void {
+      const user = this.getById(id);
 
       user.email = entity.email;
       user.firstName = entity.firstName;
       user.lastName = entity.lastName;
       user.locality = entity.locality;
+      user.localityId = entity.localityId;
       user.password = entity.password;
     },
     delete(id: string): void {
       const user = this.getById(id);
-      const index = super._users.indexOf(user);
+      const index = MockDataset._users.indexOf(user);
 
-      super._users.splice(index, 1);
+      MockDataset._users.splice(index, 1);
     },
     getByEmail(email: string): User {
       return MockDataset._users.find((user) => user.email === email);
+    },
+
+    cleanup(): void {
+      MockDataset._users.length = 0;
     },
   };
 
@@ -68,8 +74,9 @@ export class MockDataset {
     getById(id: string): Country {
       return MockDataset._countries.find((country) => country.id === id);
     },
-    save(entity: Country): void {
+    save(entity: Country): string {
       MockDataset._countries.push(entity);
+      return entity.id;
     },
     update(entity: Country): void {
       const country = this.getById(entity.id);
@@ -93,8 +100,9 @@ export class MockDataset {
     getById(id: string): Locality {
       return MockDataset._localities.find((locality) => locality.id === id);
     },
-    save(entity: Locality): void {
+    save(entity: Locality): string {
       MockDataset._localities.push(entity);
+      return entity.id;
     },
     update(entity: Locality): void {
       const locality = this.getById(entity.id);
@@ -104,9 +112,9 @@ export class MockDataset {
     },
     delete(id: string): void {
       const locality = this.getById(id);
-      const index = super._localities.indexOf(locality);
+      const index = MockDataset._localities.indexOf(locality);
 
-      super._localities.splice(index, 1);
+      MockDataset._localities.splice(index, 1);
     },
   };
 
@@ -118,8 +126,9 @@ export class MockDataset {
     getById(id: string): Brand {
       return MockDataset._brands.find((brand) => brand.id === id);
     },
-    save(entity: Brand): void {
+    save(entity: Brand): string {
       MockDataset._brands.push(entity);
+      return entity.id;
     },
     update(entity: Brand): void {
       const brand = this.getById(entity.id);
@@ -143,8 +152,9 @@ export class MockDataset {
     getById(id: string): Model {
       return MockDataset._models.find((brand) => brand.id === id);
     },
-    save(entity: Model): void {
+    save(entity: Model): string {
       MockDataset._models.push(entity);
+      return entity.id;
     },
     update(entity: Model): void {
       const model = this.getById(entity.id);
@@ -169,8 +179,9 @@ export class MockDataset {
     getById(id: string): VoteType {
       return MockDataset._voteTypes.find((item) => item.id === id);
     },
-    save(entity: VoteType): void {
+    save(entity: VoteType): string {
       MockDataset._voteTypes.push(entity);
+      return entity.id;
     },
     update(entity: VoteType): void {
       const result = this.getById(entity.id);
@@ -194,8 +205,9 @@ export class MockDataset {
     getById(id: string): Fuel {
       return MockDataset._fuels.find((item) => item.id === id);
     },
-    save(entity: Fuel): void {
+    save(entity: Fuel): string {
       MockDataset._fuels.push(entity);
+      return entity.id;
     },
     update(entity: Fuel): void {
       const result = this.getById(entity.id);
@@ -219,8 +231,9 @@ export class MockDataset {
     getById(id: string): Version {
       return MockDataset._versions.find((item) => item.id === id);
     },
-    save(entity: Version): void {
+    save(entity: Version): string {
       MockDataset._versions.push(entity);
+      return entity.id;
     },
     update(entity: Version): void {
       const result = this.getById(entity.id);
@@ -243,8 +256,9 @@ export class MockDataset {
     getById(id: string): Opinion {
       return MockDataset._opinions.find((item) => item.id === id);
     },
-    save(entity: Opinion): void {
+    save(entity: Opinion): string {
       MockDataset._opinions.push(entity);
+      return entity.id;
     },
     update(entity: Opinion): void {
       const result = this.getById(entity.id);
@@ -274,8 +288,9 @@ export class MockDataset {
     getById(id: string): Vehicle {
       return MockDataset._vehicles.find((item) => item.id === id);
     },
-    save(entity: Vehicle): void {
+    save(entity: Vehicle): string {
       MockDataset._vehicles.push(entity);
+      return entity.id;
     },
     update(entity: Vehicle): void {
       const result = this.getById(entity.id);
@@ -306,8 +321,9 @@ export class MockDataset {
     getById(id: string): Gear {
       return MockDataset._gears.find((item) => item.id === id);
     },
-    save(entity: Gear): void {
+    save(entity: Gear): string {
       MockDataset._gears.push(entity);
+      return entity.id;
     },
     update(entity: Gear): void {
       const result = this.getById(entity.id);

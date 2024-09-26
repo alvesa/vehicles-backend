@@ -14,10 +14,10 @@ export class LocalityRepository extends DatasetRepository<Locality> {
   getById(id: string): Locality {
     return this.mockDb.locality.getById(id);
   }
-  save(entity: Locality): void {
-    this.mockDb.locality.save(entity);
+  save(entity: Locality): string {
+    return this.mockDb.locality.save(entity);
   }
-  update(entity: Locality): void {
+  update(id: string, entity: Locality): void {
     this.mockDb.locality.update(entity);
   }
   delete(id: string): void {

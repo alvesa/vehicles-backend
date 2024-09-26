@@ -23,7 +23,7 @@ export class FuelService extends BaseService<Fuel> {
     this.fuelRepository.save(new Fuel(entity.name, entity.active));
   }
   update(entity: Fuel): void {
-    this.fuelRepository.update(new Fuel(entity.name, entity.active));
+    this.fuelRepository.update(entity.id, new Fuel(entity.name, entity.active));
   }
   delete(id: string): void {
     this.fuelRepository.delete(id);

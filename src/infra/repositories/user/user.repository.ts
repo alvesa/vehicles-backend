@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { MockDataset } from '../../db/mock/mock-dataset';
 import { UserDatasetRepository } from '../dataset.repository';
-import { User } from 'infra/entities/user.entity';
+import { User } from '../../entities/user.entity';
 
 @Injectable()
 export class UserRepository extends UserDatasetRepository {
@@ -21,12 +21,24 @@ export class UserRepository extends UserDatasetRepository {
     return this.mockDb.user.getById(id);
   }
 
-  save(entity: User): void {
-    this.mockDb.user.save(entity);
+  save(entity: User): string {
+    return this.mockDb.user.save(entity);
   }
 
-  update(entity: User): void {
-    this.mockDb.user.update(entity);
+  update(id: string, entity: User): void {
+    const user = this.getById(id);
+
+    this.mockDb.user.update(
+      id,
+      new User(
+        entity.firstName || user.firstName,
+        entity.lastName || user.lastName,
+        entity.email || user.email,
+        entity.localityId || user.localityId,
+        entity.locality || user.locality,
+        entity.password || user.password,
+      ),
+    );
   }
 
   delete(id: string): void {

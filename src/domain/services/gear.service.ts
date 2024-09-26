@@ -18,7 +18,7 @@ export class GearService extends BaseService<Gear> {
     this.ds.save(entity);
   }
   update(entity: Gear): void {
-    this.ds.update(entity);
+    this.ds.update(entity.id, entity);
   }
   delete(id: string): void {
     this.ds.delete(id);

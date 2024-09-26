@@ -1,16 +1,39 @@
+import { randomUUID } from 'crypto';
 import { Locality } from './locality.entity';
+import { BadRequestException } from '@nestjs/common';
 
 export class User {
-  id: string;
+  private _id: string;
+  public get id(): string {
+    return this._id;
+  }
+  public set id(id: string) {
+    this._id = id;
+  }
+
+  private _email: string;
+  public get email(): string {
+    return this._email;
+  }
+  public set email(email: string) {
+    if (!email) {
+      throw new BadRequestException('Email is required');
+    }
+
+    if (!email.includes('@')) {
+      throw new BadRequestException('Not valid email');
+    }
+
+    this._email = email;
+  }
+
   firstName: string;
   lastName: string;
-  email: string;
   localityId: string;
   locality: Locality;
   password: string;
 
   constructor(
-    id: string,
     firstName: string,
     lastName: string,
     email: string,
@@ -18,7 +41,7 @@ export class User {
     locality: Locality,
     password: string,
   ) {
-    this.id = id;
+    this.id = randomUUID();
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;

@@ -11,10 +11,10 @@ export class VersionRepository implements DatasetRepository<Version> {
   getById(id: string): Version {
     return this.mockDb.versions.getById(id);
   }
-  save(entity: Version): void {
-    this.mockDb.versions.save(entity);
+  save(entity: Version): string {
+    return this.mockDb.versions.save(entity);
   }
-  update(entity: Version): void {
+  update(id: string, entity: Version): void {
     this.mockDb.versions.update(entity);
   }
   delete(id: string): void {

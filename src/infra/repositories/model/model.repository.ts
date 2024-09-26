@@ -13,10 +13,10 @@ export class ModelRepository extends DatasetRepository<Model> {
   getById(id: string): Model {
     return this.mockDb.models.getById(id);
   }
-  save(entity: Model): void {
-    this.mockDb.models.save(entity);
+  save(entity: Model): string {
+    return this.mockDb.models.save(entity);
   }
-  update(entity: Model): void {
+  update(id: string, entity: Model): void {
     this.mockDb.models.update(entity);
   }
   delete(id: string): void {

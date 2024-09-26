@@ -5,7 +5,7 @@ import { users } from './user.seed';
 
 const voteTypeOpinions = voteTypes.filter((item) => item.id <= '3');
 const vehicle = vehicles.find((item) => item.id === '1');
-const user = users.find((item) => item.id === '1');
+const user = users[0];
 
 export const opinions: Opinion[] = [
   {

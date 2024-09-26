@@ -23,7 +23,7 @@ export class ModelService extends BaseService<Model> {
     this.modelRepository.save(entity);
   }
   update(entity: Model): void {
-    this.modelRepository.update(entity);
+    this.modelRepository.update(entity.id, entity);
   }
   delete(id: string): void {
     this.modelRepository.delete(id);

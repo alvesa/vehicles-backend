@@ -7,8 +7,9 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { BaseService, UserBaseService, UserDto } from '../../../domain';
-import { Locality, User } from 'infra';
+import { BaseService, UserBaseService } from '../../../domain';
+import { Locality } from 'infra';
+import { UserDto } from '../../../domain/dtos/user.dto';
 
 export class UserRequest {
   firstName: string;
@@ -28,12 +29,12 @@ export class UserController {
   ) {}
 
   @Get()
-  getAllUsers(): User[] {
+  getAllUsers(): UserDto[] {
     return this.userService.getAll();
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string): User {
+  getUserById(@Param('id') id: string): UserDto {
     return this.userService.getById(id);
   }
 

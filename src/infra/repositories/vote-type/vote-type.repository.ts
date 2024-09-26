@@ -12,10 +12,10 @@ export class VoteTypeRepository extends DatasetRepository<VoteType> {
   getById(id: string): VoteType {
     return this.mockDb.voteTypes.getById(id);
   }
-  save(entity: VoteType): void {
-    this.mockDb.voteTypes.save(entity);
+  save(entity: VoteType): string {
+    return this.mockDb.voteTypes.save(entity);
   }
-  update(entity: VoteType): void {
+  update(id: string, entity: VoteType): void {
     this.mockDb.voteTypes.update(entity);
   }
   delete(id: string): void {

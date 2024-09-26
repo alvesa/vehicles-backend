@@ -14,10 +14,10 @@ export class VehicleRepository extends DatasetRepository<Vehicle> {
   getById(id: string): Vehicle {
     return this.mockDb.vehicles.getById(id);
   }
-  save(entity: Vehicle): void {
-    this.mockDb.vehicles.save(entity);
+  save(entity: Vehicle): string {
+    return this.mockDb.vehicles.save(entity);
   }
-  update(entity: Vehicle): void {
+  update(id: string, entity: Vehicle): void {
     this.mockDb.vehicles.update(entity);
   }
   delete(id: string): void {

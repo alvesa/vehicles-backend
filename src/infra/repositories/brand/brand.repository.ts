@@ -13,11 +13,11 @@ export class BrandRepository extends DatasetRepository<Brand> {
   getById(id: string): Brand {
     return this.mockDb.brands.getById(id);
   }
-  save(entity: Brand): void {
-    this.mockDb.brands.save(entity);
+  save(entity: Brand): string {
+    return this.mockDb.brands.save(entity);
   }
-  update(entity: Brand): void {
-    this.update(entity);
+  update(id: string, entity: Brand): void {
+    this.update(id, entity);
   }
   delete(id: string): void {
     this.mockDb.brands.delete(id);

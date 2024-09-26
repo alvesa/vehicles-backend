@@ -12,10 +12,10 @@ export class FuelRepository implements DatasetRepository<Fuel> {
   getById(id: string): Fuel {
     return this.mockDb.fuels.getById(id);
   }
-  save(entity: Fuel): void {
-    this.mockDb.fuels.save(entity);
+  save(entity: Fuel): string {
+    return this.mockDb.fuels.save(entity);
   }
-  update(entity: Fuel): void {
+  update(id: string, entity: Fuel): void {
     this.mockDb.fuels.update(entity);
   }
   delete(id: string): void {

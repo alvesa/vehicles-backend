@@ -20,7 +20,7 @@ export class VehicleService extends BaseService<Vehicle> {
     this.ds.save(entity);
   }
   update(entity: Vehicle): void {
-    this.ds.update(entity);
+    this.ds.update(entity.id, entity);
   }
   delete(id: string): void {
     this.ds.delete(id);

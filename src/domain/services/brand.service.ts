@@ -26,7 +26,7 @@ export class BrandService extends BaseService<Brand> {
   }
 
   update(entity: Brand): void {
-    this.brandRepository.update(entity);
+    this.brandRepository.update(entity.id, entity);
   }
 
   delete(id: string): void {
