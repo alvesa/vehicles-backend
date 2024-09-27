@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { Brand, DatasetRepository } from 'infra';
+import { Brand, DatasetRepository } from '../../infra';
 import { BaseService } from './base.service';
 
 // TODO: include all dtos to a specific path
