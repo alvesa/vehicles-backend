@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { User } from 'infra';
+import { User } from '../../infra';
 
 export interface IDatasetRepository {
   getAll(): any;

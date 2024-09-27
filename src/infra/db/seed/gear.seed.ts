@@ -16,4 +16,9 @@ export const gears: Gear[] = [
     name: 'semi-automatic',
     active: true,
   },
+  {
+    id: '4',
+    name: 'CVT',
+    active: true,
+  },
 ];

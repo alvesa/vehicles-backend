@@ -1,20 +1,20 @@
 import { Test } from '@nestjs/testing';
 import { DatasetRepository } from '../dataset.repository';
 import { MockDataset } from '../../db/mock/mock-dataset';
-import { VoteType } from '../../entities/voteType.entity';
-import { VoteTypeRepository } from './vote-type.repository';
+import { Version } from '../../entities/version.entity';
+import { VersionRepository } from './version.repository';
 
-describe(VoteTypeRepository.name, () => {
+describe(VersionRepository.name, () => {
   let mockDb: MockDataset;
-  let repository: DatasetRepository<VoteType>;
+  let repository: DatasetRepository<Version>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       providers: [
         {
-          useValue: DatasetRepository<VoteType>,
-          provide: 'VOTE_TYPE_REPOSITORY',
-          useClass: VoteTypeRepository,
+          useValue: DatasetRepository<Version>,
+          provide: 'VERSION_REPOSITORY',
+          useClass: VersionRepository,
         },
         MockDataset,
       ],
@@ -22,9 +22,7 @@ describe(VoteTypeRepository.name, () => {
     }).compile();
 
     mockDb = module.get<MockDataset>(MockDataset);
-    repository = module.get<DatasetRepository<VoteType>>(
-      'VOTE_TYPE_REPOSITORY',
-    );
+    repository = module.get<DatasetRepository<Version>>('VERSION_REPOSITORY');
   });
 
   afterEach(() => {
@@ -37,7 +35,7 @@ describe(VoteTypeRepository.name, () => {
     expect(repository).toBeDefined();
   });
 
-  it('should return initial 5 vote types on getAll registered by seed', () => {
-    expect(repository.getAll()).toHaveLength(5);
+  it('should return initial 3 versions on getAll registered by seed', () => {
+    expect(repository.getAll()).toHaveLength(3);
   });
 });

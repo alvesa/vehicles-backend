@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { DatasetRepository } from '../dataset.repository';
-import { MockDataset, Version } from 'infra';
+import { MockDataset, Version } from '../../../infra';
 
 @Injectable()
 export class VersionRepository implements DatasetRepository<Version> {

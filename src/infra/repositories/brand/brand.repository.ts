@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { Brand, DatasetRepository, MockDataset } from 'infra';
+import { Brand, DatasetRepository, MockDataset } from '../../../infra';
 
 @Injectable()
 export class BrandRepository extends DatasetRepository<Brand> {

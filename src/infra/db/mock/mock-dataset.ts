@@ -21,7 +21,7 @@ import {
   Vehicle,
   Version,
   VoteType,
-} from 'infra';
+} from '../../../infra';
 
 @Injectable()
 export class MockDataset {

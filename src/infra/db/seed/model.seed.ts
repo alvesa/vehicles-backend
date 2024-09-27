@@ -20,4 +20,10 @@ export const models: Model[] = [
     brandId: '3',
     brand: brands.find((brand) => brand.id === '3'),
   },
+  {
+    id: '4',
+    name: 'model4',
+    brandId: '1',
+    brand: brands.find((brand) => brand.id === '1'),
+  },
 ];

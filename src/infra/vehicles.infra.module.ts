@@ -20,7 +20,7 @@ import {
   Vehicle,
   Gear,
   UserDatasetRepository,
-} from 'infra';
+} from '../infra';
 import { VehicleRepository } from './repositories/vehicle/vehicle.repository';
 import { GearRespository } from './repositories/gear/gear.repository';
 

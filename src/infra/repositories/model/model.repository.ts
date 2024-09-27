@@ -1,4 +1,4 @@
-import { DatasetRepository, MockDataset, Model } from 'infra';
+import { DatasetRepository, MockDataset, Model } from '../../../infra';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

@@ -1,6 +1,6 @@
-import { Vehicle } from 'infra/entities/vehicle.entity';
+import { Vehicle } from '../../entities/vehicle.entity';
 import { DatasetRepository } from '../dataset.repository';
-import { MockDataset } from 'infra';
+import { MockDataset } from '../../../infra';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()

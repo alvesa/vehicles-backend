@@ -4,7 +4,7 @@ import { UserRepository } from './user.repository';
 import { MockDataset } from '../../db/mock/mock-dataset';
 import { User } from '../../entities/user.entity';
 
-describe('UserRepository', () => {
+describe(UserRepository.name, () => {
   let mockDb: MockDataset;
   let repository: UserDatasetRepository;
 
