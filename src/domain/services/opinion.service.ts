@@ -1,5 +1,5 @@
 import { Inject, Injectable } from '@nestjs/common';
-import { DatasetRepository, Opinion } from 'infra';
+import { DatasetRepository, Opinion } from '../../infra';
 import { BaseService } from './base.service';
 
 @Injectable()

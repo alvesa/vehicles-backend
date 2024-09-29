@@ -1,4 +1,4 @@
-import { MockDataset, Version } from 'infra';
+import { MockDataset, Version } from '../../infra';
 import { BaseService } from './base.service';
 import { Injectable } from '@nestjs/common';
 

@@ -1,4 +1,4 @@
-import { DatasetRepository, Vehicle } from 'infra';
+import { DatasetRepository, Vehicle } from '../../infra';
 import { BaseService } from './base.service';
 import { Inject, Injectable } from '@nestjs/common';
 

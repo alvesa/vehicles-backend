@@ -1,5 +1,5 @@
 import { Inject } from '@nestjs/common';
-import { DatasetRepository, Gear } from 'infra';
+import { DatasetRepository, Gear } from '../../infra';
 import { BaseService } from './base.service';
 
 export class GearService extends BaseService<Gear> {

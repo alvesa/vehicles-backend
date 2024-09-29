@@ -1,5 +1,5 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
-import { Country, DatasetRepository } from 'infra';
+import { Country, DatasetRepository } from '../../infra';
 import { BaseService } from './base.service';
 
 @Injectable()

@@ -4,7 +4,7 @@ import {
   Locality,
   User,
   UserDatasetRepository,
-} from 'infra';
+} from '../../infra';
 import { UserBaseService } from './base.service';
 import { UserDto } from 'domain/dtos/user.dto';
 
