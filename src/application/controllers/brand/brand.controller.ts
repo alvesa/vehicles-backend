@@ -8,7 +8,7 @@ import {
   Post,
 } from '@nestjs/common';
 import { BaseService } from '../../../domain';
-import { Brand } from 'infra';
+import { Brand } from '../../../infra';
 
 export interface BrandRequest {
   name: string;

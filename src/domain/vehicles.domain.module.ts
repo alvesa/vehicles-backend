@@ -11,7 +11,7 @@ import {
   VehiclesInfraModule,
   Version,
   VoteType,
-} from 'infra';
+} from '../infra';
 
 import {
   FuelService,

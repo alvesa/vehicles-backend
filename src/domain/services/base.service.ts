@@ -1,5 +1,5 @@
 import { UserDto } from '..//dtos/user.dto';
-import { User } from 'infra';
+import { User } from '../../infra';
 
 export abstract class BaseService<T> {
   abstract getAll(): T[];
