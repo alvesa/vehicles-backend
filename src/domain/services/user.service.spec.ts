@@ -1,18 +1,20 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
-import { User, UserDatasetRepository, VehiclesInfraModule } from '../../infra';
+import { UserDatasetRepository, VehiclesInfraModule } from '../../infra';
 import { UserService } from './user.service';
+import { UserDto } from 'domain/dtos/user.dto';
+import { UserResponse } from 'application';
 
 describe(UserService.name, () => {
   let repository: UserDatasetRepository;
-  let service: BaseService<User>;
+  let service: BaseService<UserDto, UserResponse>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [VehiclesInfraModule],
       providers: [
         {
-          useValue: BaseService<User>,
+          useValue: BaseService<UserDto, UserResponse>,
           provide: 'USER_SERVICE',
           useClass: UserService,
         },
@@ -20,7 +22,7 @@ describe(UserService.name, () => {
       exports: [],
     }).compile();
 
-    service = module.get<BaseService<User>>('USER_SERVICE');
+    service = module.get<BaseService<UserDto, UserResponse>>('USER_SERVICE');
     repository = module.get<UserDatasetRepository>('USER_REPOSITORY');
   });
 

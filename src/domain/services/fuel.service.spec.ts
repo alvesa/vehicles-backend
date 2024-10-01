@@ -1,18 +1,19 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
 import { DatasetRepository, Fuel, VehiclesInfraModule } from '../../infra';
-import { FuelService } from './fuel.service';
+import { FuelDto, FuelService } from './fuel.service';
+import { FuelResponse } from 'application';
 
 describe(FuelService.name, () => {
   let repository: DatasetRepository<Fuel>;
-  let service: BaseService<Fuel>;
+  let service: BaseService<FuelDto, FuelResponse>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [VehiclesInfraModule],
       providers: [
         {
-          useValue: BaseService<Fuel>,
+          useValue: BaseService<FuelDto, FuelResponse>,
           provide: 'FUEL_SERVICE',
           useClass: FuelService,
         },
@@ -20,7 +21,7 @@ describe(FuelService.name, () => {
       exports: [],
     }).compile();
 
-    service = module.get<BaseService<Fuel>>('FUEL_SERVICE');
+    service = module.get<BaseService<FuelDto, FuelResponse>>('FUEL_SERVICE');
     repository = module.get<DatasetRepository<Fuel>>('FUEL_REPOSITORY');
   });
 

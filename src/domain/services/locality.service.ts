@@ -1,9 +1,18 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Country, DatasetRepository, Locality } from '../../infra';
 import { BaseService } from '../services/base.service';
+import { LocalityResponse } from '../../application';
+
+export interface LocalityDto {
+  name: string;
+  countryId: string;
+}
 
 @Injectable()
-export class LocalityService extends BaseService<Locality> {
+export class LocalityService extends BaseService<
+  LocalityDto,
+  LocalityResponse
+> {
   constructor(
     @Inject('LOCALITY_REPOSITORY')
     private readonly localityRepository: DatasetRepository<Locality>,
@@ -21,9 +30,9 @@ export class LocalityService extends BaseService<Locality> {
     return this.localityRepository.getById(id);
   }
 
-  add(entity: Locality): void {
+  add(entity: Locality): string {
     const country = this.countryRepository.getById(entity.countryId);
-    this.localityRepository.save(new Locality(entity.name, country.id));
+    return this.localityRepository.save(new Locality(entity.name, country.id));
   }
   update(entity: Locality): void {
     console.log({ entity });

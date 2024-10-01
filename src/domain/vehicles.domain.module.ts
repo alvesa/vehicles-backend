@@ -1,17 +1,5 @@
 import { Module } from '@nestjs/common';
-import {
-  Brand,
-  Country,
-  Fuel,
-  Gear,
-  Locality,
-  Model,
-  Opinion,
-  Vehicle,
-  VehiclesInfraModule,
-  Version,
-  VoteType,
-} from '../infra';
+import { VehiclesInfraModule } from '../infra';
 
 import {
   FuelService,
@@ -27,11 +15,33 @@ import {
   GearService,
   VehicleService,
   UserBaseService,
+  OpinionDto,
+  BrandDto,
+  ModelDto,
+  VersionDto,
+  VehicleDto,
+  VoteTypeDto,
+  FuelDto,
+  GearDto,
 } from './';
+import {
+  BrandResponse,
+  CountryResponse,
+  FuelResponse,
+  GearResponse,
+  LocalityResponse,
+  ModelResponse,
+  OpinionResponse,
+  VersionResponse,
+  VoteTypeResponse,
+} from 'application';
+import { CountryDto } from './dtos/coutry.dto';
+import { LocalityDto } from './dtos/locality.dto';
+import { VehicleResponse } from 'application/controllers/vehicle/vehicle.controller';
 
 const opinionServiceProvider = {
   provide: 'OPINION_SERVICE',
-  useValue: BaseService<Opinion>,
+  useValue: BaseService<OpinionDto, OpinionResponse>,
   useClass: OpinionService,
 };
 
@@ -43,55 +53,55 @@ const userServiceProvider = {
 
 const countryServiceProvider = {
   provide: 'COUNTRY_SERVICE',
-  useValue: BaseService<Country>,
+  useValue: BaseService<CountryDto, CountryResponse>,
   useClass: CountryService,
 };
 
 const localityServiceProvider = {
   provide: 'LOCALITY_SERVICE',
-  useValue: BaseService<Locality>,
+  useValue: BaseService<LocalityDto, LocalityResponse>,
   useClass: LocalityService,
 };
 
 const brandServiceProvider = {
   provide: 'BRAND_SERVICE',
-  useValue: BaseService<Brand>,
+  useValue: BaseService<BrandDto, BrandResponse>,
   useClass: BrandService,
 };
 
 const modelServiceProvider = {
   provide: 'MODEL_SERVICE',
-  useValue: BaseService<Model>,
+  useValue: BaseService<ModelDto, ModelResponse>,
   useClass: ModelService,
 };
 
 const versionServiceProvider = {
   provide: 'VERSION_SERVICE',
-  useValue: BaseService<Version>,
+  useValue: BaseService<VersionDto, VersionResponse>,
   useClass: VersionService,
 };
 
 const vehicleServiceProvider = {
   provide: 'VEHICLE_SERVICE',
-  useValue: BaseService<Vehicle>,
+  useValue: BaseService<VehicleDto, VehicleResponse>,
   useClass: VehicleService,
 };
 
 const voteTypeServiceProvider = {
   provide: 'VOTE_TYPE_SERVICE',
-  useValue: BaseService<VoteType>,
+  useValue: BaseService<VoteTypeDto, VoteTypeResponse>,
   useClass: VoteTypeService,
 };
 
 const fuelServiceProvider = {
   provide: 'FUEL_SERVICE',
-  useValue: BaseService<Fuel>,
+  useValue: BaseService<FuelDto, FuelResponse>,
   useClass: FuelService,
 };
 
 const gearServiceProvider = {
   provide: 'GEAR_SERVICE',
-  useValue: BaseService<Gear>,
+  useValue: BaseService<GearDto, GearResponse>,
   useClass: GearService,
 };
 @Module({

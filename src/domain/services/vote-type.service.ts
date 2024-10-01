@@ -1,9 +1,17 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DatasetRepository, VoteType } from '../../infra';
 import { BaseService } from './base.service';
+import { VoteTypeResponse } from '../../application';
+
+export interface VoteTypeDto {
+  name: string;
+}
 
 @Injectable()
-export class VoteTypeService extends BaseService<VoteType> {
+export class VoteTypeService extends BaseService<
+  VoteTypeDto,
+  VoteTypeResponse
+> {
   constructor(
     @Inject('VOTE_TYPE_REPOSITORY')
     private readonly voteTypeRepository: DatasetRepository<VoteType>,
@@ -19,8 +27,8 @@ export class VoteTypeService extends BaseService<VoteType> {
     return this.voteTypeRepository.getById(id);
   }
 
-  add(entity: VoteType): void {
-    this.voteTypeRepository.save(entity);
+  add(entity: VoteType): string {
+    return this.voteTypeRepository.save(entity);
   }
   update(entity: VoteType): void {
     this.voteTypeRepository.update(entity.id, entity);

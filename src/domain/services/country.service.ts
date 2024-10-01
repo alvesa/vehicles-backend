@@ -1,9 +1,14 @@
 import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Country, DatasetRepository } from '../../infra';
 import { BaseService } from './base.service';
+import { CountryResponse } from 'application';
+
+export interface CountryDto {
+  name: string;
+}
 
 @Injectable()
-export class CountryService extends BaseService<Country> {
+export class CountryService extends BaseService<CountryDto, CountryResponse> {
   constructor(
     @Inject('COUNTRY_REPOSITORY')
     private readonly countryRepository: DatasetRepository<Country>,
@@ -26,8 +31,8 @@ export class CountryService extends BaseService<Country> {
   getAll(): Country[] {
     return this.countryRepository.getAll();
   }
-  add(entity: Country): void {
-    this.countryRepository.save(new Country(entity.name));
+  add(entity: Country): string {
+    return this.countryRepository.save(new Country(entity.name));
   }
   update(entity: Country): void {
     console.log({ entity });

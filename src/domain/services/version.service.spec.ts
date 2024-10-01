@@ -1,17 +1,18 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
-import { VehiclesInfraModule, Version } from '../../infra';
-import { VersionService } from './version.service';
+import { VehiclesInfraModule } from '../../infra';
+import { VersionDto, VersionService } from './version.service';
+import { VersionResponse } from 'application';
 
 describe(VersionService.name, () => {
-  let service: BaseService<Version>;
+  let service: BaseService<VersionDto, VersionResponse>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [VehiclesInfraModule],
       providers: [
         {
-          useValue: BaseService<Version>,
+          useValue: BaseService<VersionDto, VersionResponse>,
           provide: 'VERSION_SERVICE',
           useClass: VersionService,
         },
@@ -19,7 +20,8 @@ describe(VersionService.name, () => {
       exports: [],
     }).compile();
 
-    service = module.get<BaseService<Version>>('VERSION_SERVICE');
+    service =
+      module.get<BaseService<VersionDto, VersionResponse>>('VERSION_SERVICE');
   });
 
   afterEach(() => {

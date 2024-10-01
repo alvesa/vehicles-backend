@@ -1,17 +1,18 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
 import { VehiclesInfraModule, Version, VoteType } from '../../infra';
-import { VoteTypeService } from './vote-type.service';
+import { VoteTypeDto, VoteTypeService } from './vote-type.service';
+import { VoteTypeResponse } from 'application';
 
 describe(VoteTypeService.name, () => {
-  let service: BaseService<VoteType>;
+  let service: BaseService<VoteTypeDto, VoteTypeResponse>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [VehiclesInfraModule],
       providers: [
         {
-          useValue: BaseService<Version>,
+          useValue: BaseService<VoteTypeDto, VoteTypeResponse>,
           provide: 'VOTE_TYPE_SERVICE',
           useClass: VoteTypeService,
         },
@@ -19,7 +20,10 @@ describe(VoteTypeService.name, () => {
       exports: [],
     }).compile();
 
-    service = module.get<BaseService<VoteType>>('VOTE_TYPE_SERVICE');
+    service =
+      module.get<BaseService<VoteTypeDto, VoteTypeResponse>>(
+        'VOTE_TYPE_SERVICE',
+      );
   });
 
   afterEach(() => {

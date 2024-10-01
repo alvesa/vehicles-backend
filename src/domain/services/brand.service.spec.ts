@@ -1,18 +1,19 @@
 import { Test } from '@nestjs/testing';
-import { BrandService } from './brand.service';
+import { BrandDto, BrandService } from './brand.service';
 import { BaseService } from './base.service';
 import { Brand, DatasetRepository, VehiclesInfraModule } from '../../infra';
+import { BrandResponse } from 'application';
 
 describe(BrandService.name, () => {
   let repository: DatasetRepository<Brand>;
-  let service: BaseService<Brand>;
+  let service: BaseService<BrandDto, BrandResponse>;
 
   beforeEach(async () => {
     const module = await Test.createTestingModule({
       imports: [VehiclesInfraModule],
       providers: [
         {
-          useValue: BaseService<Brand>,
+          useValue: BaseService<BrandDto, BrandResponse>,
           provide: 'BRAND_SERVICE',
           useClass: BrandService,
         },
@@ -20,7 +21,7 @@ describe(BrandService.name, () => {
       exports: [],
     }).compile();
 
-    service = module.get<BaseService<Brand>>('BRAND_SERVICE');
+    service = module.get<BaseService<BrandDto, BrandResponse>>('BRAND_SERVICE');
     repository = module.get<DatasetRepository<Brand>>('BRAND_REPOSITORY');
   });
 

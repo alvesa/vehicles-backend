@@ -1,12 +1,20 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { FuelDto } from '../../../domain';
 import { BaseService } from 'domain/services/base.service';
-import { Fuel } from 'infra';
+
+export interface FuelRequest {
+  name: string;
+}
+
+export interface FuelResponse {
+  name: string;
+}
 
 @Controller('fuel')
 export class FuelController {
   constructor(
     @Inject('FUEL_SERVICE')
-    private readonly fuelService: BaseService<Fuel>,
+    private readonly fuelService: BaseService<FuelDto, FuelResponse>,
   ) {}
 
   @Get()
@@ -20,7 +28,7 @@ export class FuelController {
   }
 
   @Post()
-  addFuel(@Body() request: Fuel) {
+  addFuel(@Body() request: FuelRequest) {
     return this.fuelService.add(request);
   }
 }

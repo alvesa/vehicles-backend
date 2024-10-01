@@ -1,6 +1,7 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { BaseService } from '../../../domain';
 import { Country } from 'infra';
+import { CountryDto } from 'domain/dtos/coutry.dto';
 
 interface CountryRequest {
   name: string;
@@ -16,7 +17,7 @@ export interface CountryResponse {
 export class CountryController {
   constructor(
     @Inject('COUNTRY_SERVICE')
-    private readonly countryService: BaseService<Country>,
+    private readonly countryService: BaseService<CountryDto, CountryResponse>,
   ) {}
 
   @Get()

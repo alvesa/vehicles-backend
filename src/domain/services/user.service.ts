@@ -27,8 +27,8 @@ export class UserService extends UserBaseService {
     return this.userRepository.getById(id);
   }
 
-  add(entity: UserDto): void {
-    this.userRepository.save(
+  add(entity: UserDto): string {
+    return this.userRepository.save(
       new User(
         entity.firstName,
         entity.lastName,

@@ -7,8 +7,7 @@ import {
   Patch,
   Post,
 } from '@nestjs/common';
-import { BaseService } from '../../../domain';
-import { Brand } from '../../../infra';
+import { BaseService, BrandDto } from '../../../domain';
 
 export interface BrandRequest {
   name: string;
@@ -19,7 +18,7 @@ export interface BrandUpdateRequest {
   name: string;
 }
 
-interface BrandResponse {
+export interface BrandResponse {
   id: string;
   name: string;
   active: boolean;
@@ -29,12 +28,18 @@ interface BrandResponse {
 export class BrandController {
   constructor(
     @Inject('BRAND_SERVICE')
-    private readonly brandService: BaseService<Brand>,
+    private readonly brandService: BaseService<BrandDto, BrandResponse>,
   ) {}
 
   @Get()
   getAll(): BrandResponse[] {
-    return this.brandService.getAll();
+    const brands = this.brandService.getAll();
+
+    return brands.map((brand) => ({
+      id: brand.id,
+      name: brand.name,
+      active: brand.active,
+    }));
   }
 
   @Get(':id')
@@ -43,8 +48,8 @@ export class BrandController {
   }
 
   @Post()
-  addBrand(@Body() request: Brand): void {
-    this.brandService.add(request);
+  addBrand(@Body() request: BrandRequest): string {
+    return this.brandService.add(new BrandDto(request.name));
   }
 
   @Patch()

@@ -1,22 +1,25 @@
 import { Controller, Get, Inject, Param } from '@nestjs/common';
 // TODO: verify service imports
-import { BaseService } from '../../../domain';
-import { Model } from 'infra';
+import { BaseService, ModelDto } from '../../../domain';
+
+export interface ModelResponse {
+  name: string;
+}
 
 @Controller('model')
 export class ModelController {
   constructor(
     @Inject('MODEL_SERVICE')
-    private readonly modelService: BaseService<Model>,
+    private readonly modelService: BaseService<ModelDto, ModelResponse>,
   ) {}
 
   @Get()
-  getAll(): Model[] {
+  getAll(): ModelResponse[] {
     return this.modelService.getAll();
   }
 
   @Get('id')
-  getById(@Param('id') id: string): Model {
+  getById(@Param('id') id: string): ModelResponse {
     return this.modelService.getById(id);
   }
 }

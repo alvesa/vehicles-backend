@@ -13,14 +13,12 @@ export class UserDto {
     lastName: string,
     email: string,
     localityId: string,
-    locality: LocalityDto,
     password: string,
   ) {
     this.firstName = firstName;
     this.lastName = lastName;
     this.email = email;
     this.localityId = localityId;
-    this.locality = locality;
     this.password = password;
   }
 }

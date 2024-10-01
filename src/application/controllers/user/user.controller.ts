@@ -8,8 +8,9 @@ import {
   Post,
 } from '@nestjs/common';
 import { BaseService, UserBaseService } from '../../../domain';
-import { Locality } from 'infra';
 import { UserDto } from '../../../domain/dtos/user.dto';
+import { LocalityDto } from 'domain/dtos/locality.dto';
+import { LocalityResponse } from '../locality/locality.controller';
 
 export class UserRequest {
   firstName: string;
@@ -19,27 +20,34 @@ export class UserRequest {
   password: string;
 }
 
+export interface UserResponse {
+  id: string;
+}
+
 @Controller('user')
 export class UserController {
   constructor(
     @Inject('USER_SERVICE')
     private readonly userService: UserBaseService,
     @Inject('LOCALITY_SERVICE')
-    private readonly localityService: BaseService<Locality>,
+    private readonly localityService: BaseService<
+      LocalityDto,
+      LocalityResponse
+    >,
   ) {}
 
   @Get()
-  getAllUsers(): UserDto[] {
+  getAllUsers(): UserResponse[] {
     return this.userService.getAll();
   }
 
   @Get(':id')
-  getUserById(@Param('id') id: string): UserDto {
+  getUserById(@Param('id') id: string): UserResponse {
     return this.userService.getById(id);
   }
 
   @Post()
-  addUser(@Body() user: UserRequest): void {
+  addUser(@Body() user: UserRequest): string {
     const result = this.userService.getByEmail(user.email);
 
     if (result) {
@@ -58,7 +66,6 @@ export class UserController {
         user.lastName,
         user.email,
         user.localityId,
-        locality,
         user.password,
       ),
     );
