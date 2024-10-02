@@ -9,4 +9,7 @@ export * from './controllers/vote-type/vote-type.controller';
 export * from './controllers/opinion/opinion.controller';
 export * from './controllers/gear/gear.controller';
 
+export * from './controllers/brand/dtos/brand.request';
+export * from './controllers/brand/dtos/brand.response';
+
 export * from './vehicles.application.module';

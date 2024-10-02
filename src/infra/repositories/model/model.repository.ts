@@ -16,7 +16,7 @@ export class ModelRepository extends DatasetRepository<Model> {
   save(entity: Model): string {
     return this.mockDb.models.save(entity);
   }
-  update(id: string, entity: Model): void {
+  update(entity: Model): void {
     this.mockDb.models.update(entity);
   }
   delete(id: string): void {

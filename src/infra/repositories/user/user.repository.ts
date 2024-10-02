@@ -25,20 +25,8 @@ export class UserRepository extends UserDatasetRepository {
     return this.mockDb.user.save(entity);
   }
 
-  update(id: string, entity: User): void {
-    const user = this.getById(id);
-
-    this.mockDb.user.update(
-      id,
-      new User(
-        entity.firstName || user.firstName,
-        entity.lastName || user.lastName,
-        entity.email || user.email,
-        entity.localityId || user.localityId,
-        entity.locality || user.locality,
-        entity.password || user.password,
-      ),
-    );
+  update(entity: User): void {
+    this.mockDb.user.update(entity);
   }
 
   delete(id: string): void {

@@ -14,7 +14,7 @@ export class VersionRepository implements DatasetRepository<Version> {
   save(entity: Version): string {
     return this.mockDb.versions.save(entity);
   }
-  update(id: string, entity: Version): void {
+  update(entity: Version): void {
     this.mockDb.versions.update(entity);
   }
   delete(id: string): void {

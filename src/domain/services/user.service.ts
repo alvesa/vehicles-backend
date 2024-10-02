@@ -40,7 +40,7 @@ export class UserService extends UserBaseService {
     );
   }
   update(entity: User): void {
-    this.userRepository.update(entity.id, entity);
+    this.userRepository.update(entity);
   }
   delete(id: string): void {
     this.userRepository.delete(id);

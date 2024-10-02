@@ -31,7 +31,7 @@ export class VoteTypeService extends BaseService<
     return this.voteTypeRepository.save(entity);
   }
   update(entity: VoteType): void {
-    this.voteTypeRepository.update(entity.id, entity);
+    this.voteTypeRepository.update(entity);
   }
   delete(id: string): void {
     this.voteTypeRepository.delete(id);

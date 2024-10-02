@@ -17,7 +17,7 @@ export class LocalityRepository extends DatasetRepository<Locality> {
   save(entity: Locality): string {
     return this.mockDb.locality.save(entity);
   }
-  update(id: string, entity: Locality): void {
+  update(entity: Locality): void {
     this.mockDb.locality.update(entity);
   }
   delete(id: string): void {

@@ -15,7 +15,7 @@ export class CountryRepository extends DatasetRepository<Country> {
   save(entity: Country): string {
     return this.mockDb.country.save(entity);
   }
-  update(id: string, entity: Country): void {
+  update(entity: Country): void {
     this.mockDb.country.update(entity);
   }
   delete(id: string): void {

@@ -100,17 +100,17 @@ describe(UserRepository.name, () => {
         'any_password',
       ),
     );
-    repository.update(
-      userId,
-      new User(
-        'any_name2',
-        'any_last_name2',
-        'any_email2@any_email2.com',
-        '2',
-        mockDb.locality.getById('2'),
-        'any_password2',
-      ),
-    );
+
+    const unchangedUser = repository.getById(userId);
+
+    unchangedUser.firstName = 'any_name2';
+    unchangedUser.lastName = 'any_last_name2';
+    unchangedUser.email = 'any_email2@any_email2.com';
+    unchangedUser.localityId = '2';
+    unchangedUser.locality = mockDb.locality.getById('2');
+    unchangedUser.password = 'any_password2';
+
+    repository.update(unchangedUser);
     const updatedUser = repository.getById(userId);
 
     expect(updatedUser.firstName).toEqual('any_name2');

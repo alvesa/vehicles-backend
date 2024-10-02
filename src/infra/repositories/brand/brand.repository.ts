@@ -16,8 +16,8 @@ export class BrandRepository extends DatasetRepository<Brand> {
   save(entity: Brand): string {
     return this.mockDb.brands.save(entity);
   }
-  update(id: string, entity: Brand): void {
-    this.update(id, entity);
+  update(entity: Brand): void {
+    this.mockDb.brands.update(entity);
   }
   delete(id: string): void {
     this.mockDb.brands.delete(id);

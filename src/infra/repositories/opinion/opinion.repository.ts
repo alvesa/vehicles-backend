@@ -16,7 +16,7 @@ export class OpinionRepository extends DatasetRepository<Opinion> {
   save(entity: Opinion): string {
     return this.mockDb.opinions.save(entity);
   }
-  update(id: string, entity: Opinion): void {
+  update(entity: Opinion): void {
     this.mockDb.opinions.update(entity);
   }
   delete(id: string): void {

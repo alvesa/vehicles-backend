@@ -28,7 +28,7 @@ export class ModelService extends BaseService<ModelDto, ModelResponse> {
     return this.modelRepository.save(entity);
   }
   update(entity: Model): void {
-    this.modelRepository.update(entity.id, entity);
+    this.modelRepository.update(entity);
   }
   delete(id: string): void {
     this.modelRepository.delete(id);

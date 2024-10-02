@@ -41,8 +41,8 @@ export class MockDataset {
       MockDataset._users.push(entity);
       return entity.id;
     },
-    update(id: string, entity: User): void {
-      const user = this.getById(id);
+    update(entity: User): void {
+      const user = this.getById(entity.id);
 
       user.email = entity.email;
       user.firstName = entity.firstName;

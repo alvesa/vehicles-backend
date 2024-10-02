@@ -17,7 +17,7 @@ export class VoteTypeRepository extends DatasetRepository<VoteType> {
   save(entity: VoteType): string {
     return this.mockDb.voteTypes.save(entity);
   }
-  update(id: string, entity: VoteType): void {
+  update(entity: VoteType): void {
     this.mockDb.voteTypes.update(entity);
   }
   delete(id: string): void {

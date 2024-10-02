@@ -8,21 +8,8 @@ import {
   Post,
 } from '@nestjs/common';
 import { BaseService, BrandDto } from '../../../domain';
-
-export interface BrandRequest {
-  name: string;
-}
-
-export interface BrandUpdateRequest {
-  id: string;
-  name: string;
-}
-
-export interface BrandResponse {
-  id: string;
-  name: string;
-  active: boolean;
-}
+import { BrandResponse } from './dtos/brand.response';
+import { BrandRequest, BrandUpdateRequest } from './dtos/brand.request';
 
 @Controller('brand')
 export class BrandController {

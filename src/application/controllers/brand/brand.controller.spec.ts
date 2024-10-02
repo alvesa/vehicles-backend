@@ -27,16 +27,35 @@ describe(BrandController.name, () => {
     expect(controller.getAll()).toHaveLength(3);
   });
 
-  it('should return no brand', () => {
+  it('should return undefined brand', () => {
     const result = controller.getById('brand-undefined');
 
     expect(result).toBeUndefined();
   });
 
-  it('should return a new brand', () => {
-    const request = new BrandDto('Test Brand');
-    const newBrand = controller.addBrand(request);
+  it('should return undefined brand', () => {
+    const result = controller.getById('1');
 
-    expect(controller.getById(newBrand).id).toBe(newBrand);
+    expect(result).toMatchObject(
+      expect.objectContaining({ id: '1', name: 'brand1', active: true }),
+    );
+  });
+
+  it('should return a new registered brand', () => {
+    const request = new BrandDto('Test Brand');
+    const brandId = controller.addBrand(request);
+
+    expect(controller.getById(brandId).id).toBe(brandId);
+  });
+
+  it('should return an updated name brand', () => {
+    const brand = controller.getById('1');
+
+    controller.updateBrand({
+      id: brand.id,
+      name: 'newName',
+    });
+
+    expect(brand.name).toBe('newName');
   });
 });

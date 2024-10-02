@@ -15,7 +15,7 @@ export class FuelRepository implements DatasetRepository<Fuel> {
   save(entity: Fuel): string {
     return this.mockDb.fuels.save(entity);
   }
-  update(id: string, entity: Fuel): void {
+  update(entity: Fuel): void {
     this.mockDb.fuels.update(entity);
   }
   delete(id: string): void {

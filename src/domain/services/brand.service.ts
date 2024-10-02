@@ -1,7 +1,7 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { Brand, DatasetRepository } from '../../infra';
 import { BaseService } from './base.service';
-import { BrandResponse } from '../../application';
+import { BrandResponse } from 'application';
 
 // TODO: include all dtos to a specific path
 export class BrandDto {
@@ -34,7 +34,7 @@ export class BrandService extends BaseService<BrandDto, BrandResponse> {
   }
 
   update(entity: Brand): void {
-    this.brandRepository.update(entity.id, entity);
+    this.brandRepository.update(entity);
   }
 
   delete(id: string): void {

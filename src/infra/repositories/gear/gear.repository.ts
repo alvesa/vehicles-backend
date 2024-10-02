@@ -16,7 +16,7 @@ export class GearRespository extends DatasetRepository<Gear> {
   save(entity: Gear): string {
     return this.mockDb.gears.save(entity);
   }
-  update(id: string, entity: Gear): void {
+  update(entity: Gear): void {
     this.mockDb.gears.update(entity);
   }
   delete(id: string): void {
