@@ -1,8 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
-import { VehiclesInfraModule, Version, VoteType } from '../../infra';
-import { VoteTypeDto, VoteTypeService } from './vote-type.service';
+import { VehiclesInfraModule } from '../../infra';
+import { VoteTypeService } from './vote-type.service';
 import { VoteTypeResponse } from 'application';
+import { VoteTypeDto } from '../../domain';
 
 describe(VoteTypeService.name, () => {
   let service: BaseService<VoteTypeDto, VoteTypeResponse>;

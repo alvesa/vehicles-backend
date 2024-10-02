@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Inject, Post } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 import { BaseService } from '../../../domain';
 import { CountryResponse } from '../../../application';
 import { Locality } from '../../../infra';
@@ -10,6 +10,7 @@ export interface LocalityRequest {
 }
 
 export interface LocalityResponse {
+  id: string;
   name: string;
   country: CountryResponse;
 }
@@ -29,8 +30,13 @@ export class LocalityController {
     return this.localityService.getAll();
   }
 
+  @Get(':id')
+  getById(@Param('id') id: string): LocalityResponse {
+    return this.localityService.getById(id);
+  }
+
   @Post()
-  addLocality(@Body() request: Locality): void {
-    this.localityService.add(request);
+  addLocality(@Body() request: Locality): string {
+    return this.localityService.add(request);
   }
 }

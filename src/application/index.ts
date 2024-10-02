@@ -11,5 +11,7 @@ export * from './controllers/gear/gear.controller';
 
 export * from './controllers/brand/dtos/brand.request';
 export * from './controllers/brand/dtos/brand.response';
+export * from './controllers/fuel/dtos/fuel.request';
+export * from './controllers/fuel/dtos/fuel.response';
 
 export * from './vehicles.application.module';

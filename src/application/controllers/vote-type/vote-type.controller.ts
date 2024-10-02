@@ -1,9 +1,10 @@
-import { Controller, Get, Inject } from '@nestjs/common';
-import { VoteTypeDto } from '../../../domain';
-import { BaseService } from 'domain/services/base.service';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { VoteTypeDto, BaseService } from '../../../domain';
 
 export interface VoteTypeResponse {
   id: string;
+  name: string;
+  active: boolean;
 }
 
 @Controller('vote-type')
@@ -17,7 +18,17 @@ export class VoteTypeController {
   ) {}
 
   @Get()
-  getAllVoteTypes() {
+  getAll(): VoteTypeResponse[] {
     return this.voteTypeService.getAll();
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: string): VoteTypeResponse {
+    return this.voteTypeService.getById(id);
+  }
+
+  @Post()
+  addVoteType(@Body() request: VoteTypeDto): string {
+    return this.voteTypeService.add(request);
   }
 }

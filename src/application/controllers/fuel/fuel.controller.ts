@@ -1,14 +1,7 @@
 import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
-import { FuelDto } from '../../../domain';
-import { BaseService } from 'domain/services/base.service';
-
-export interface FuelRequest {
-  name: string;
-}
-
-export interface FuelResponse {
-  name: string;
-}
+import { FuelDto, BaseService } from '../../../domain';
+import { FuelResponse } from './dtos/fuel.response';
+import { FuelRequest } from './dtos/fuel.request';
 
 @Controller('fuel')
 export class FuelController {
@@ -23,12 +16,12 @@ export class FuelController {
   }
 
   @Get(':id')
-  getById(@Param('id') id: string) {
+  getById(@Param('id') id: string): FuelResponse {
     return this.fuelService.getById(id);
   }
 
   @Post()
-  addFuel(@Body() request: FuelRequest) {
+  addFuel(@Body() request: FuelRequest): string {
     return this.fuelService.add(request);
   }
 }

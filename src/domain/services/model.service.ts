@@ -1,11 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { DatasetRepository, Model } from '../../infra';
 import { BaseService } from './base.service';
 import { ModelResponse } from 'application';
-
-export interface ModelDto {
-  name: string;
-}
+import { ModelDto } from '../../domain';
 
 @Injectable()
 export class ModelService extends BaseService<ModelDto, ModelResponse> {
@@ -21,7 +18,13 @@ export class ModelService extends BaseService<ModelDto, ModelResponse> {
   }
 
   getById(id: string): Model {
-    return this.modelRepository.getById(id);
+    const model = this.modelRepository.getById(id);
+
+    if (!model) {
+      throw new NotFoundException('Model not found');
+    }
+
+    return model;
   }
 
   add(entity: Model): string {

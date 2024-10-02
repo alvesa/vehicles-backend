@@ -1,6 +1,5 @@
-import { Controller, Get, Inject } from '@nestjs/common';
-import { VehicleDto } from '../../../domain';
-import { BaseService } from 'domain/services/base.service';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { VehicleDto, BaseService } from '../../../domain';
 
 export interface VehicleResponse {
   id: string;
@@ -12,8 +11,19 @@ export class VehicleController {
     @Inject('VEHICLE_SERVICE')
     private readonly vehicleService: BaseService<VehicleDto, VehicleResponse>,
   ) {}
+
   @Get()
-  getAll() {
+  getAll(): VehicleResponse[] {
     return this.vehicleService.getAll();
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: string): VehicleResponse {
+    return this.vehicleService.getById(id);
+  }
+
+  @Post()
+  addVehicle(@Body() entity: VehicleDto): string {
+    return this.vehicleService.add(entity);
   }
 }

@@ -1,30 +1,36 @@
 import { VersionResponse } from 'application';
-import { MockDataset, Version } from '../../infra';
+import { DatasetRepository, Version } from '../../infra';
 import { BaseService } from './base.service';
-import { Injectable } from '@nestjs/common';
-
-export interface VersionDto {
-  id: string;
-}
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { VersionDto } from '../../domain';
 
 @Injectable()
 export class VersionService extends BaseService<VersionDto, VersionResponse> {
-  constructor(private readonly mockDb: MockDataset) {
+  constructor(
+    @Inject('VERSION_REPOSITORY')
+    private readonly ds: DatasetRepository<Version>,
+  ) {
     super();
   }
   getAll(): Version[] {
-    return this.mockDb.versions.getAll();
+    return this.ds.getAll();
   }
   getById(id: string): Version {
-    return this.mockDb.versions.getById(id);
+    const version = this.ds.getById(id);
+
+    if (!version) {
+      throw new NotFoundException('Version not found');
+    }
+
+    return version;
   }
-  add(entity: Version): string {
-    return this.mockDb.versions.save(entity);
+  add(entity: VersionDto): string {
+    return this.ds.save(new Version(entity.version));
   }
   update(entity: Version): void {
-    this.mockDb.versions.update(entity);
+    this.ds.update(entity);
   }
   delete(id: string): void {
-    this.mockDb.versions.delete(id);
+    this.ds.delete(id);
   }
 }

@@ -34,7 +34,7 @@ export class UserService extends UserBaseService {
         entity.lastName,
         entity.email,
         entity.localityId,
-        entity.locality,
+        this.localityRepository.getById(entity.localityId),
         entity.password,
       ),
     );

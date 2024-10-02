@@ -1,8 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
 import { Country, DatasetRepository, VehiclesInfraModule } from '../../infra';
-import { CountryDto, CountryService } from './country.service';
+import { CountryService } from './country.service';
 import { CountryResponse } from 'application';
+import { CountryDto } from 'domain/dtos/country.dto';
 
 describe(CountryService.name, () => {
   let repository: DatasetRepository<Country>;

@@ -7,9 +7,13 @@ import {
   Param,
   Post,
 } from '@nestjs/common';
-import { BaseService, UserBaseService } from '../../../domain';
-import { UserDto } from '../../../domain/dtos/user.dto';
-import { LocalityDto } from 'domain/dtos/locality.dto';
+import {
+  BaseService,
+  LocalityDto,
+  UserBaseService,
+  UserDto,
+} from '../../../domain';
+
 import { LocalityResponse } from '../locality/locality.controller';
 
 export class UserRequest {

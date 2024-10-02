@@ -1,11 +1,8 @@
-import { Inject, Injectable } from '@nestjs/common';
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { DatasetRepository, VoteType } from '../../infra';
 import { BaseService } from './base.service';
 import { VoteTypeResponse } from '../../application';
-
-export interface VoteTypeDto {
-  name: string;
-}
+import { VoteTypeDto } from '../../domain';
 
 @Injectable()
 export class VoteTypeService extends BaseService<
@@ -24,7 +21,13 @@ export class VoteTypeService extends BaseService<
   }
 
   getById(id: string): VoteType {
-    return this.voteTypeRepository.getById(id);
+    const voteType = this.voteTypeRepository.getById(id);
+
+    if (!voteType) {
+      throw new NotFoundException('VoteType not found');
+    }
+
+    return voteType;
   }
 
   add(entity: VoteType): string {

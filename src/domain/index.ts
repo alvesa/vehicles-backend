@@ -11,4 +11,6 @@ export * from './services/gear.service';
 export * from './services/vehicle.service';
 export * from './services/base.service';
 
+export * from './dtos';
+
 export * from './vehicles.domain.module';

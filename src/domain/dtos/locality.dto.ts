@@ -1,5 +1,5 @@
 import { randomUUID } from 'crypto';
-import { CountryDto } from './coutry.dto';
+import { CountryDto } from './country.dto';
 
 export class LocalityDto {
   id: string;

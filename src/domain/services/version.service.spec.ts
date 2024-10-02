@@ -1,8 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
 import { VehiclesInfraModule } from '../../infra';
-import { VersionDto, VersionService } from './version.service';
+import { VersionService } from './version.service';
 import { VersionResponse } from 'application';
+import { VersionDto } from '../../domain';
 
 describe(VersionService.name, () => {
   let service: BaseService<VersionDto, VersionResponse>;

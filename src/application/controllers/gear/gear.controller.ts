@@ -1,6 +1,5 @@
-import { Controller, Get, Inject } from '@nestjs/common';
-import { GearDto } from '../../../domain';
-import { BaseService } from 'domain/services/base.service';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import { BaseService, GearDto } from '../../../domain';
 
 export interface GearRequest {
   name: string;
@@ -20,7 +19,17 @@ export class GearController {
   ) {}
 
   @Get()
-  getAll() {
+  getAll(): GearResponse[] {
     return this.gearService.getAll();
+  }
+
+  @Get(':id')
+  getById(@Param('id') id: string): GearResponse {
+    return this.gearService.getById(id);
+  }
+
+  @Post()
+  addGear(@Body() request: GearRequest): string {
+    return this.gearService.add(new GearDto(request.name));
   }
 }

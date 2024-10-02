@@ -1,11 +1,8 @@
-import { LocalityDto } from './locality.dto';
-
 export class UserDto {
   firstName: string;
   lastName: string;
   email: string;
   localityId: string;
-  locality: LocalityDto;
   password: string;
 
   constructor(

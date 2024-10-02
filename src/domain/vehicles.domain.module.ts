@@ -35,7 +35,7 @@ import {
   VersionResponse,
   VoteTypeResponse,
 } from 'application';
-import { CountryDto } from './dtos/coutry.dto';
+import { CountryDto } from './dtos/country.dto';
 import { LocalityDto } from './dtos/locality.dto';
 import { VehicleResponse } from 'application/controllers/vehicle/vehicle.controller';
 

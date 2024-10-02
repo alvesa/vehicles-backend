@@ -2,10 +2,7 @@ import { Inject, Injectable } from '@nestjs/common';
 import { DatasetRepository, Fuel } from '../../infra';
 import { BaseService } from './base.service';
 import { FuelResponse } from '../../application';
-
-export interface FuelDto {
-  name: string;
-}
+import { FuelDto } from 'domain/dtos/fuel.dto';
 
 @Injectable()
 export class FuelService extends BaseService<FuelDto, FuelResponse> {

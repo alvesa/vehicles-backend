@@ -1,8 +1,9 @@
 import { Test } from '@nestjs/testing';
 import { BaseService } from './base.service';
 import { DatasetRepository, Fuel, VehiclesInfraModule } from '../../infra';
-import { FuelDto, FuelService } from './fuel.service';
+import { FuelService } from './fuel.service';
 import { FuelResponse } from 'application';
+import { FuelDto } from '../../domain';
 
 describe(FuelService.name, () => {
   let repository: DatasetRepository<Fuel>;

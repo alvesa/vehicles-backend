@@ -20,6 +20,8 @@ import {
   Vehicle,
   Gear,
   UserDatasetRepository,
+  Version,
+  VersionRepository,
 } from '../infra';
 import { VehicleRepository } from './repositories/vehicle/vehicle.repository';
 import { GearRespository } from './repositories/gear/gear.repository';
@@ -84,6 +86,12 @@ const gearRepoProvider = {
   useClass: GearRespository,
 };
 
+const versionRepoProvider = {
+  useValue: DatasetRepository<Version>,
+  provide: 'VERSION_REPOSITORY',
+  useClass: VersionRepository,
+};
+
 @Module({
   imports: [],
   providers: [
@@ -98,6 +106,7 @@ const gearRepoProvider = {
     opinionRepoProvider,
     vehicleRepoProvider,
     gearRepoProvider,
+    versionRepoProvider,
   ],
   exports: [
     MockDataset,
@@ -111,6 +120,7 @@ const gearRepoProvider = {
     opinionRepoProvider,
     vehicleRepoProvider,
     gearRepoProvider,
+    versionRepoProvider,
   ],
 })
 export class VehiclesInfraModule {}

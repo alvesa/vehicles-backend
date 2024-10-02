@@ -1,8 +1,13 @@
-import { Controller, Get, Inject, Param } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
 // TODO: verify service imports
 import { BaseService, ModelDto } from '../../../domain';
 
 export interface ModelResponse {
+  id: string;
+  name: string;
+}
+
+export interface ModelRequest {
   name: string;
 }
 
@@ -21,5 +26,10 @@ export class ModelController {
   @Get('id')
   getById(@Param('id') id: string): ModelResponse {
     return this.modelService.getById(id);
+  }
+
+  @Post()
+  addModel(@Body() request: ModelRequest): string {
+    return this.modelService.add(new ModelDto(request.name));
   }
 }

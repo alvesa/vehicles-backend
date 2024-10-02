@@ -4,7 +4,11 @@ import { BaseService } from './base.service';
 import { GearResponse } from '../../application';
 
 export class GearDto {
-  id: string;
+  name: string;
+
+  constructor(name: string) {
+    this.name = name;
+  }
 }
 
 export class GearService extends BaseService<GearDto, GearResponse> {
@@ -19,8 +23,8 @@ export class GearService extends BaseService<GearDto, GearResponse> {
   getById(id: string): Gear {
     return this.ds.getById(id);
   }
-  add(entity: Gear): string {
-    return this.ds.save(entity);
+  add(entity: GearDto): string {
+    return this.ds.save(new Gear(entity.name, true));
   }
   update(entity: Gear): void {
     this.ds.update(entity);

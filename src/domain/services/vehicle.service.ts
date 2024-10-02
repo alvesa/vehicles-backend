@@ -1,11 +1,8 @@
 import { VehicleResponse } from 'application/controllers/vehicle/vehicle.controller';
 import { DatasetRepository, Vehicle } from '../../infra';
 import { BaseService } from './base.service';
-import { Inject, Injectable } from '@nestjs/common';
-
-export interface VehicleDto {
-  id: string;
-}
+import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { VehicleDto } from '../../domain';
 
 @Injectable()
 export class VehicleService extends BaseService<VehicleDto, VehicleResponse> {
@@ -19,10 +16,29 @@ export class VehicleService extends BaseService<VehicleDto, VehicleResponse> {
     return this.ds.getAll();
   }
   getById(id: string): Vehicle {
-    return this.ds.getById(id);
+    const vehicle = this.ds.getById(id);
+
+    if (!vehicle) {
+      throw new NotFoundException('Vehicle not found');
+    }
+
+    return vehicle;
   }
-  add(entity: Vehicle): string {
-    return this.ds.save(entity);
+  add(entity: VehicleDto): string {
+    return this.ds.save(
+      new Vehicle(
+        entity.modelId,
+        entity.localityId,
+        entity.versionId,
+        entity.fuelId,
+        entity.year,
+        entity.month,
+        entity.kms,
+        entity.hp,
+        entity.gearId,
+        entity.active,
+      ),
+    );
   }
   update(entity: Vehicle): void {
     this.ds.update(entity);

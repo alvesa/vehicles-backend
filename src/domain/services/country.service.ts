@@ -2,10 +2,7 @@ import { Inject, Injectable, NotFoundException } from '@nestjs/common';
 import { Country, DatasetRepository } from '../../infra';
 import { BaseService } from './base.service';
 import { CountryResponse } from 'application';
-
-export interface CountryDto {
-  name: string;
-}
+import { CountryDto } from 'domain/dtos/country.dto';
 
 @Injectable()
 export class CountryService extends BaseService<CountryDto, CountryResponse> {
