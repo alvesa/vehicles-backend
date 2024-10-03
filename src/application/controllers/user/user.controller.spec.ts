@@ -1,7 +1,7 @@
 import { Test } from '@nestjs/testing';
 
 import { UserDto, VehiclesDomainModule } from '../../../domain';
-import { NotFoundException } from '@nestjs/common';
+import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { UserController } from './user.controller';
 
 describe(UserController.name, () => {
@@ -29,16 +29,16 @@ describe(UserController.name, () => {
     expect(controller.getAllUsers()).toHaveLength(0);
   });
 
-  it('should return throw NotFoundException', () => {
+  it('should throw NotFoundException case user not found', () => {
     try {
-      controller.getUserById('model-undefined');
+      controller.getUserById('user-not-found');
     } catch (error: Error | any) {
       expect(error).toBeInstanceOf(NotFoundException);
-      expect(error.message).toBe('Model not found');
+      expect(error.message).toBe('User not found');
     }
   });
 
-  it('should return first item', () => {
+  it('should return first user registered', () => {
     const userId = controller.addUser(
       new UserDto(
         'name',
@@ -53,25 +53,83 @@ describe(UserController.name, () => {
 
     expect(result).toMatchObject(
       expect.objectContaining({
-        _id: userId,
-        _email: 'email@email.com',
+        id: userId,
+        email: 'email@email.com',
         firstName: 'name',
         lastName: 'lastName',
-        locality: expect.anything(),
+        locality: expect.any(Object),
         localityId: '1',
-        password: 'passwordsad6f54fgd54',
       }),
     );
   });
 
-  // TODO: fix side effects
-  it('should return a new registered model', () => {
+  it('should return user by email', () => {
+    const userId = controller.addUser(
+      new UserDto(
+        'name3',
+        'lastName3',
+        'email3@email.com',
+        '2',
+        'passwordsad6f54fgd56',
+      ),
+    );
+
+    const result = controller.getUserByEmail('email3@email.com');
+
+    expect(result).toMatchObject(
+      expect.objectContaining({
+        id: userId,
+        email: 'email3@email.com',
+        firstName: 'name3',
+        lastName: 'lastName3',
+        locality: expect.anything(),
+        localityId: '2',
+      }),
+    );
+  });
+
+  it('should not add a new user case user already exists', () => {
     const request = new UserDto(
       'name2',
       'lastName2',
       'email@email.com2',
       '2',
       'passwordsad6f54fgd55',
+    );
+
+    try {
+      controller.addUser(request);
+    } catch (err: Error | any) {
+      expect(err).toBeInstanceOf(BadRequestException);
+      expect(err.message).toBe('User already exists');
+    }
+  });
+
+  it('should not add a new user case user already exists', () => {
+    const request = new UserDto(
+      'name4',
+      'lastName4',
+      'email@email.com4',
+      '15',
+      'passwordsad6f54fgd57',
+    );
+
+    try {
+      controller.addUser(request);
+    } catch (err: Error | any) {
+      expect(err).toBeInstanceOf(BadRequestException);
+      expect(err.message).toBe('Not valid locality');
+    }
+  });
+
+  // TODO: fix side effects
+  it('should add a new user', () => {
+    const request = new UserDto(
+      'name5',
+      'lastName5',
+      'email@email.com5',
+      '1',
+      'passwordsad6f54fgd59',
     );
     const userId = controller.addUser(request);
 

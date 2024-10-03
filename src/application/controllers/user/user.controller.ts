@@ -4,6 +4,7 @@ import {
   Controller,
   Get,
   Inject,
+  NotFoundException,
   Param,
   Post,
 } from '@nestjs/common';
@@ -15,18 +16,9 @@ import {
 } from '../../../domain';
 
 import { LocalityResponse } from '../locality/locality.controller';
-
-export class UserRequest {
-  firstName: string;
-  lastName: string;
-  email: string;
-  localityId: string;
-  password: string;
-}
-
-export interface UserResponse {
-  id: string;
-}
+import { UserRequest } from './dtos/user.request';
+import { plainToClass } from 'class-transformer';
+import { UserResponse } from './dtos/user.response';
 
 @Controller('user')
 export class UserController {
@@ -47,11 +39,32 @@ export class UserController {
 
   @Get(':id')
   getUserById(@Param('id') id: string): UserResponse {
-    return this.userService.getById(id);
+    const user = this.userService.getById(id);
+
+    if (!user) {
+      throw new NotFoundException('User not found');
+    }
+
+    return plainToClass(UserResponse, user, {
+      excludeExtraneousValues: true,
+    });
+  }
+
+  @Get(':email')
+  getUserByEmail(@Param('email') email: string): UserResponse {
+    const user = this.userService.getByEmail(email);
+
+    return plainToClass(UserResponse, user, {
+      excludeExtraneousValues: true,
+    });
   }
 
   @Post()
-  addUser(@Body() user: UserRequest): string {
+  addUser(@Body() request: UserRequest): string {
+    const user = plainToClass(UserRequest, request, {
+      excludeExtraneousValues: true,
+    });
+
     const result = this.userService.getByEmail(user.email);
 
     if (result) {
@@ -61,7 +74,7 @@ export class UserController {
     const locality = this.localityService.getById(user.localityId);
 
     if (!locality) {
-      throw new BadRequestException('Invalid locality');
+      throw new BadRequestException('Not valid locality');
     }
 
     return this.userService.add(

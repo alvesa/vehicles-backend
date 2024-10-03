@@ -1,4 +1,12 @@
-import { Body, Controller, Get, Inject, Param, Post } from '@nestjs/common';
+import {
+  Body,
+  Controller,
+  Get,
+  Inject,
+  NotFoundException,
+  Param,
+  Post,
+} from '@nestjs/common';
 import { BaseService } from '../../../domain';
 import { CountryResponse } from '../../../application';
 import { Locality } from '../../../infra';
@@ -32,7 +40,13 @@ export class LocalityController {
 
   @Get(':id')
   getById(@Param('id') id: string): LocalityResponse {
-    return this.localityService.getById(id);
+    const locality = this.localityService.getById(id);
+
+    if (!locality) {
+      throw new NotFoundException('Locality not found');
+    }
+
+    return locality;
   }
 
   @Post()

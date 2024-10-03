@@ -15,5 +15,7 @@ export * from './controllers/fuel/dtos/fuel.request';
 export * from './controllers/fuel/dtos/fuel.response';
 export * from './controllers/opinion/dtos/opinion.request';
 export * from './controllers/opinion/dtos/opinion.response';
+export * from './controllers/user/dtos/user.request';
+export * from './controllers/user/dtos/user.response';
 
 export * from './vehicles.application.module';

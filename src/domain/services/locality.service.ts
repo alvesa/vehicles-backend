@@ -1,4 +1,4 @@
-import { Inject, Injectable, NotFoundException } from '@nestjs/common';
+import { Inject, Injectable } from '@nestjs/common';
 import { Country, DatasetRepository, Locality } from '../../infra';
 import { BaseService } from '../services/base.service';
 import { LocalityResponse } from '../../application';
@@ -23,13 +23,7 @@ export class LocalityService extends BaseService<
   }
 
   getById(id: string): Locality {
-    const locality = this.localityRepository.getById(id);
-
-    if (!locality) {
-      throw new NotFoundException('Locality not found');
-    }
-
-    return locality;
+    return this.localityRepository.getById(id);
   }
 
   add(entity: Locality): string {

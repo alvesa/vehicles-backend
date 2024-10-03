@@ -1,5 +1,5 @@
 import { UserDto } from '../dtos/user.dto';
-import { User } from '../../infra';
+
 import { UserResponse } from '../../application';
 
 export abstract class BaseService<Dto, Res> {
@@ -14,5 +14,5 @@ export abstract class UserBaseService extends BaseService<
   UserDto,
   UserResponse
 > {
-  abstract getByEmail(email: string): User;
+  abstract getByEmail(email: string): UserDto;
 }
