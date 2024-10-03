@@ -1,21 +1,23 @@
-import { randomUUID } from 'crypto';
-import { User, Vehicle, VoteType } from 'infra';
-
-export class Opinion {
-  id: string;
+export class OpinionDto {
   title: string;
   negatives: string;
   positives: string;
   problems: string;
   general: string;
   vehicleId: string;
-  vehicle: Vehicle;
   voteTypeOpinionIds: string[];
-  voteTypeOpinion: VoteType[];
   userId: string;
-  userOpinion: User;
+
+  private _id: string;
+  public get id(): string {
+    return this._id;
+  }
+  public set id(v: string) {
+    this._id = v;
+  }
 
   constructor(
+    id: string,
     title: string,
     negatives: string,
     positives: string,
@@ -23,9 +25,9 @@ export class Opinion {
     general: string,
     vehicleId: string,
     voteTypeOpinionIds: string[],
-    userOpinionId: string,
+    userId: string,
   ) {
-    this.id = randomUUID();
+    this.id = id;
     this.title = title;
     this.negatives = negatives;
     this.positives = positives;
@@ -33,6 +35,6 @@ export class Opinion {
     this.general = general;
     this.vehicleId = vehicleId;
     this.voteTypeOpinionIds = voteTypeOpinionIds;
-    this.userId = userOpinionId;
+    this.userId = userId;
   }
 }

@@ -269,8 +269,8 @@ export class MockDataset {
       result.problems = entity.problems;
       result.general = entity.general;
       result.vehicleId = entity.vehicleId;
-      result.voteTypeOpinionId = entity.voteTypeOpinionId;
-      result.userOpinionId = entity.userOpinionId;
+      result.voteTypeOpinionIds = entity.voteTypeOpinionIds;
+      result.userId = entity.userId;
     },
     delete(id: string): void {
       const result = this.getById(id);

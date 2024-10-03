@@ -1,18 +1,8 @@
 import { Inject, Injectable } from '@nestjs/common';
 import { DatasetRepository, Opinion } from '../../infra';
 import { BaseService } from './base.service';
+import { OpinionDto } from '../../domain';
 import { OpinionResponse } from '../../application';
-
-export interface OpinionDto {
-  title: string;
-  negatives: string;
-  positives: string;
-  problems: string;
-  general: string;
-  vehicleId: string;
-  voteTypeOpinionId: string[];
-  userOpinionId: string;
-}
 
 @Injectable()
 export class OpinionService extends BaseService<OpinionDto, OpinionResponse> {
@@ -23,12 +13,42 @@ export class OpinionService extends BaseService<OpinionDto, OpinionResponse> {
     super();
   }
 
-  getAll(): Opinion[] {
-    return this.ds.getAll();
+  getAll(): OpinionDto[] {
+    const opinions = this.ds.getAll();
+
+    return opinions.map((opinion) => {
+      return new OpinionDto(
+        opinion.id,
+        opinion.title,
+        opinion.negatives,
+        opinion.positives,
+        opinion.problems,
+        opinion.general,
+        opinion.vehicleId,
+        opinion.voteTypeOpinionIds,
+        opinion.userId,
+      );
+    });
   }
 
-  getById(id: string): Opinion {
-    return this.ds.getById(id);
+  getById(id: string): OpinionDto {
+    const opinion = this.ds.getById(id);
+
+    if (!opinion) {
+      return;
+    }
+
+    return new OpinionDto(
+      opinion.id,
+      opinion.title,
+      opinion.negatives,
+      opinion.positives,
+      opinion.problems,
+      opinion.general,
+      opinion.vehicleId,
+      opinion.voteTypeOpinionIds,
+      opinion.userId,
+    );
   }
 
   add(entity: OpinionDto): string {
@@ -40,15 +60,28 @@ export class OpinionService extends BaseService<OpinionDto, OpinionResponse> {
         entity.problems,
         entity.general,
         entity.vehicleId,
-        entity.voteTypeOpinionId,
-        entity.userOpinionId,
+        entity.voteTypeOpinionIds,
+        entity.userId,
       ),
     );
   }
-  update(entity: Opinion): void {
-    console.log({ entity });
+  update(entity: OpinionDto): void {
+    const opinion = this.ds.getById(entity.id);
+
+    opinion.title = entity.title;
+    opinion.negatives = entity.negatives;
+    opinion.positives = entity.positives;
+    opinion.problems = entity.problems;
+    opinion.general = entity.general;
+    opinion.vehicleId = entity.vehicleId;
+    opinion.voteTypeOpinionIds = entity.voteTypeOpinionIds;
+    opinion.userId = entity.userId;
+
+    this.ds.update(opinion);
   }
   delete(id: string): void {
-    console.log({ id });
+    const opinion = this.ds.getById(id);
+
+    this.ds.delete(opinion.id);
   }
 }

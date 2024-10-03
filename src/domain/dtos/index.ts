@@ -6,3 +6,4 @@ export * from './vote-type.dto';
 export * from './version.dto';
 export * from './vehicle.dto';
 export * from './user.dto';
+export * from './opinion.dto';
