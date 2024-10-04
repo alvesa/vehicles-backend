@@ -19,6 +19,7 @@ import { LocalityResponse } from '../locality/locality.controller';
 import { UserRequest } from './dtos/user.request';
 import { plainToClass } from 'class-transformer';
 import { UserResponse } from './dtos/user.response';
+import { validateOrReject } from 'class-validator';
 
 @Controller('user')
 export class UserController {
@@ -60,10 +61,12 @@ export class UserController {
   }
 
   @Post()
-  addUser(@Body() request: UserRequest): string {
+  async addUser(@Body() request: UserRequest): Promise<string> {
     const user = plainToClass(UserRequest, request, {
       excludeExtraneousValues: true,
     });
+
+    await validateOrReject('UserRequest', user);
 
     const result = this.userService.getByEmail(user.email);
 

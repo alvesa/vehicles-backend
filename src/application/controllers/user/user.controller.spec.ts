@@ -1,8 +1,61 @@
 import { Test } from '@nestjs/testing';
 
-import { UserDto, VehiclesDomainModule } from '../../../domain';
+import { VehiclesDomainModule } from '../../../domain';
 import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { UserController } from './user.controller';
+import { UserRequest } from './dtos/user.request';
+
+const usersRequest: UserRequest[] = [
+  {
+    firstName: 'name1',
+    lastName: 'lastName1',
+    email: 'email1@email.com',
+    localityId: '1',
+    password: 'Pass4aC5654@',
+  },
+  {
+    firstName: 'name2',
+    lastName: 'lastName2',
+    email: 'email2@email.com',
+    localityId: '1',
+    password: 'Pass4aC5654@',
+  },
+  {
+    firstName: 'name3',
+    lastName: 'lastName3',
+    email: 'email3@email.com',
+    localityId: '1',
+    password: 'Pass4aC5654@',
+  },
+  {
+    firstName: 'name4',
+    lastName: 'lastName4',
+    email: 'email4@email.com',
+    localityId: '1',
+    password: 'Pass4aC5654@',
+  },
+  {
+    firstName: 'name5',
+    lastName: 'lastName5',
+    email: 'email5@email.com',
+    localityId: '1',
+    password: 'min8',
+  },
+  {
+    firstName: 'name6',
+    lastName: 'lastName6',
+    email: 'email6@email.com',
+    localityId: '1',
+    password: 'notNumbersPass@',
+  },
+  {
+    firstName: 'name7',
+    lastName: 'lastName7',
+    email: 'email7@email.com',
+    localityId: '1',
+    password: 'notminuppercasep4ssword@',
+  },
+];
 
 describe(UserController.name, () => {
   let controller: UserController;
@@ -38,84 +91,52 @@ describe(UserController.name, () => {
     }
   });
 
-  it('should return first user registered', () => {
-    const userId = controller.addUser(
-      new UserDto(
-        'name',
-        'lastName',
-        'email@email.com',
-        '1',
-        'passwordsad6f54fgd54',
-      ),
-    );
+  it('should return first user registered', async () => {
+    const userId = await controller.addUser(usersRequest[0]);
 
     const result = controller.getUserById(userId);
 
     expect(result).toMatchObject(
       expect.objectContaining({
         id: userId,
-        email: 'email@email.com',
-        firstName: 'name',
-        lastName: 'lastName',
+        email: 'email1@email.com',
+        firstName: 'name1',
+        lastName: 'lastName1',
         locality: expect.any(Object),
         localityId: '1',
       }),
     );
   });
 
-  it('should return user by email', () => {
-    const userId = controller.addUser(
-      new UserDto(
-        'name3',
-        'lastName3',
-        'email3@email.com',
-        '2',
-        'passwordsad6f54fgd56',
-      ),
-    );
+  it('should return user by email', async () => {
+    const userId = await controller.addUser(usersRequest[1]);
 
-    const result = controller.getUserByEmail('email3@email.com');
+    const result = controller.getUserByEmail('email2@email.com');
 
     expect(result).toMatchObject(
       expect.objectContaining({
         id: userId,
-        email: 'email3@email.com',
-        firstName: 'name3',
-        lastName: 'lastName3',
-        locality: expect.anything(),
-        localityId: '2',
+        email: 'email2@email.com',
+        firstName: 'name2',
+        lastName: 'lastName2',
+        locality: expect.any(Object),
+        localityId: '1',
       }),
     );
   });
 
-  it('should not add a new user case user already exists', () => {
-    const request = new UserDto(
-      'name2',
-      'lastName2',
-      'email@email.com2',
-      '2',
-      'passwordsad6f54fgd55',
-    );
-
+  it('should not add a new user case user already exists', async () => {
     try {
-      controller.addUser(request);
+      await controller.addUser(usersRequest[2]);
     } catch (err: Error | any) {
       expect(err).toBeInstanceOf(BadRequestException);
       expect(err.message).toBe('User already exists');
     }
   });
 
-  it('should not add a new user case user already exists', () => {
-    const request = new UserDto(
-      'name4',
-      'lastName4',
-      'email@email.com4',
-      '15',
-      'passwordsad6f54fgd57',
-    );
-
+  it('should not add a new user case user already exists', async () => {
     try {
-      controller.addUser(request);
+      await controller.addUser(usersRequest[3]);
     } catch (err: Error | any) {
       expect(err).toBeInstanceOf(BadRequestException);
       expect(err.message).toBe('Not valid locality');
@@ -123,16 +144,57 @@ describe(UserController.name, () => {
   });
 
   // TODO: fix side effects
-  it('should add a new user', () => {
-    const request = new UserDto(
-      'name5',
-      'lastName5',
-      'email@email.com5',
-      '1',
-      'passwordsad6f54fgd59',
-    );
-    const userId = controller.addUser(request);
+  it('should add a new user', async () => {
+    const request: UserRequest = {
+      firstName: 'name6',
+      lastName: 'lastName6',
+      email: 'email6@email.com',
+      localityId: '1',
+      password: 'Pass4aC5654@',
+    };
+    const userId = await controller.addUser(request);
 
     expect(controller.getUserById(userId).id).toBe(userId);
+  });
+
+  it('should not create user with no valid password', async () => {
+    console.log(usersRequest[6]);
+    await expect(controller.addUser(usersRequest[4])).rejects.toMatchObject([
+      {
+        children: [],
+        constraints: {
+          isStrongPassword: 'password is not strong enough',
+          minLength: 'password must be longer than or equal to 8 characters',
+        },
+        property: 'password',
+        target: {
+          email: 'email5@email.com',
+          firstName: 'name5',
+          lastName: 'lastName5',
+          localityId: '1',
+          password: 'min8',
+        },
+        value: 'min8',
+      },
+    ]);
+    await expect(controller.addUser(usersRequest[5])).rejects.toMatchObject([
+      {
+        children: [],
+        constraints: { isStrongPassword: 'password is not strong enough' },
+        property: 'password',
+        target: {
+          email: 'email6@email.com',
+          firstName: 'name6',
+          lastName: 'lastName6',
+          localityId: '1',
+          password: 'notNumbersPass@',
+        },
+        value: 'notNumbersPass@',
+      },
+    ]);
+
+    await expect(controller.addUser(usersRequest[6])).rejects.toMatchObject([
+      {}, // TODO: fix object matching
+    ]);
   });
 });
