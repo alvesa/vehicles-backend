@@ -1,13 +1,23 @@
 import { Expose } from 'class-transformer';
-import { IsEmail, IsStrongPassword, MinLength } from 'class-validator';
+import {
+  IsEmail,
+  IsStrongPassword,
+  Matches,
+  MaxLength,
+  MinLength,
+} from 'class-validator';
 
 export class UserRequest {
   @Expose()
   @MinLength(3)
+  @MaxLength(30)
+  @Matches(/^[a-zA-ZÀ-ÖØ-öø-ÿ'’\-.\s]+$/g)
   firstName: string;
 
   @Expose()
   @MinLength(3)
+  @MaxLength(30)
+  @Matches(/^[a-zA-ZÀ-ÖØ-öø-ÿ'’\-.\s]+$/g)
   lastName: string;
 
   @Expose()
@@ -15,6 +25,7 @@ export class UserRequest {
   email: string;
 
   @Expose()
+  @Matches(/[0-9]/g) // TODO: Remove after
   localityId: string;
 
   @Expose()

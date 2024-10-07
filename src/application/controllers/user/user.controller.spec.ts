@@ -5,57 +5,13 @@ import { BadRequestException, NotFoundException } from '@nestjs/common';
 import { UserController } from './user.controller';
 import { UserRequest } from './dtos/user.request';
 
-const usersRequest: UserRequest[] = [
-  {
-    firstName: 'name1',
-    lastName: 'lastName1',
-    email: 'email1@email.com',
-    localityId: '1',
-    password: 'Pass4aC5654@',
-  },
-  {
-    firstName: 'name2',
-    lastName: 'lastName2',
-    email: 'email2@email.com',
-    localityId: '1',
-    password: 'Pass4aC5654@',
-  },
-  {
-    firstName: 'name3',
-    lastName: 'lastName3',
-    email: 'email3@email.com',
-    localityId: '1',
-    password: 'Pass4aC5654@',
-  },
-  {
-    firstName: 'name4',
-    lastName: 'lastName4',
-    email: 'email4@email.com',
-    localityId: '1',
-    password: 'Pass4aC5654@',
-  },
-  {
-    firstName: 'name5',
-    lastName: 'lastName5',
-    email: 'email5@email.com',
-    localityId: '1',
-    password: 'min8',
-  },
-  {
-    firstName: 'name6',
-    lastName: 'lastName6',
-    email: 'email6@email.com',
-    localityId: '1',
-    password: 'notNumbersPass@',
-  },
-  {
-    firstName: 'name7',
-    lastName: 'lastName7',
-    email: 'email7@email.com',
-    localityId: '1',
-    password: 'notminuppercasep4ssword@',
-  },
-];
+const usersRequest: UserRequest = {
+  firstName: 'UserName',
+  lastName: 'LastName',
+  email: 'email1@email.com',
+  localityId: '1',
+  password: 'Pass4aC5654@',
+};
 
 describe(UserController.name, () => {
   let controller: UserController;
@@ -92,7 +48,7 @@ describe(UserController.name, () => {
   });
 
   it('should return first user registered', async () => {
-    const userId = await controller.addUser(usersRequest[0]);
+    const userId = await controller.addUser(usersRequest);
 
     const result = controller.getUserById(userId);
 
@@ -100,8 +56,8 @@ describe(UserController.name, () => {
       expect.objectContaining({
         id: userId,
         email: 'email1@email.com',
-        firstName: 'name1',
-        lastName: 'lastName1',
+        firstName: 'UserName',
+        lastName: 'LastName',
         locality: expect.any(Object),
         localityId: '1',
       }),
@@ -109,7 +65,13 @@ describe(UserController.name, () => {
   });
 
   it('should return user by email', async () => {
-    const userId = await controller.addUser(usersRequest[1]);
+    const userId = await controller.addUser({
+      email: 'email2@email.com',
+      firstName: 'NameTwo',
+      lastName: 'LastNameTwo',
+      localityId: '1',
+      password: 'Pass4aC5654@',
+    });
 
     const result = controller.getUserByEmail('email2@email.com');
 
@@ -117,8 +79,8 @@ describe(UserController.name, () => {
       expect.objectContaining({
         id: userId,
         email: 'email2@email.com',
-        firstName: 'name2',
-        lastName: 'lastName2',
+        firstName: 'NameTwo',
+        lastName: 'LastNameTwo',
         locality: expect.any(Object),
         localityId: '1',
       }),
@@ -127,7 +89,7 @@ describe(UserController.name, () => {
 
   it('should not add a new user case user already exists', async () => {
     try {
-      await controller.addUser(usersRequest[2]);
+      await controller.addUser({ ...usersRequest });
     } catch (err: Error | any) {
       expect(err).toBeInstanceOf(BadRequestException);
       expect(err.message).toBe('User already exists');
@@ -136,7 +98,11 @@ describe(UserController.name, () => {
 
   it('should not add a new user case user already exists', async () => {
     try {
-      await controller.addUser(usersRequest[3]);
+      await controller.addUser({
+        ...usersRequest,
+        email: 'email3@email.com',
+        localityId: '16',
+      });
     } catch (err: Error | any) {
       expect(err).toBeInstanceOf(BadRequestException);
       expect(err.message).toBe('Not valid locality');
@@ -146,8 +112,8 @@ describe(UserController.name, () => {
   // TODO: fix side effects
   it('should add a new user', async () => {
     const request: UserRequest = {
-      firstName: 'name6',
-      lastName: 'lastName6',
+      firstName: 'NewUser',
+      lastName: 'LastNewUser',
       email: 'email6@email.com',
       localityId: '1',
       password: 'Pass4aC5654@',
@@ -158,43 +124,136 @@ describe(UserController.name, () => {
   });
 
   it('should not create user with no valid password', async () => {
-    console.log(usersRequest[6]);
-    await expect(controller.addUser(usersRequest[4])).rejects.toMatchObject([
+    await expect(
+      controller.addUser({ ...usersRequest, password: 'min8' }),
+    ).rejects.toMatchObject([
       {
-        children: [],
         constraints: {
           isStrongPassword: 'password is not strong enough',
-          minLength: 'password must be longer than or equal to 8 characters',
-        },
-        property: 'password',
-        target: {
-          email: 'email5@email.com',
-          firstName: 'name5',
-          lastName: 'lastName5',
-          localityId: '1',
-          password: 'min8',
         },
         value: 'min8',
       },
     ]);
-    await expect(controller.addUser(usersRequest[5])).rejects.toMatchObject([
+    await expect(
+      controller.addUser({ ...usersRequest, password: 'notNumbersPass@' }),
+    ).rejects.toMatchObject([
       {
-        children: [],
-        constraints: { isStrongPassword: 'password is not strong enough' },
-        property: 'password',
-        target: {
-          email: 'email6@email.com',
-          firstName: 'name6',
-          lastName: 'lastName6',
-          localityId: '1',
-          password: 'notNumbersPass@',
+        constraints: {
+          isStrongPassword: 'password is not strong enough',
         },
         value: 'notNumbersPass@',
       },
     ]);
 
-    await expect(controller.addUser(usersRequest[6])).rejects.toMatchObject([
-      {}, // TODO: fix object matching
+    await expect(
+      controller.addUser({
+        ...usersRequest,
+        password: 'not-min-uppercase-p4ssword@',
+      }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          isStrongPassword: 'password is not strong enough',
+        },
+        value: 'not-min-uppercase-p4ssword@',
+      },
+    ]);
+
+    await expect(
+      controller.addUser({ ...usersRequest, password: 'notMinSpecialCh4r' }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          isStrongPassword: 'password is not strong enough',
+        },
+        value: 'notMinSpecialCh4r',
+      },
+    ]);
+
+    await expect(
+      controller.addUser({ ...usersRequest, password: 'NOTM1NLOWERC4S3' }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          isStrongPassword: 'password is not strong enough',
+        },
+        value: 'NOTM1NLOWERC4S3',
+      },
+    ]);
+  });
+
+  it('should not create if request contains not valid locality', async () => {
+    await expect(
+      controller.addUser({ ...usersRequest, localityId: 'not-valid' }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          matches: 'localityId must match /[0-9]/g regular expression',
+        },
+      },
+    ]);
+  });
+
+  it('should not create if request contains not valid email', async () => {
+    await expect(
+      controller.addUser({ ...usersRequest, email: 'not-valid-email.com' }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          isEmail: 'email must be an email',
+        },
+      },
+    ]);
+  });
+
+  it('should not create if request contains not valid firstName or lastName', async () => {
+    await expect(
+      controller.addUser({ ...usersRequest, firstName: 'nm' }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          minLength: 'firstName must be longer than or equal to 3 characters',
+        },
+      },
+    ]);
+
+    await expect(
+      controller.addUser({
+        ...usersRequest,
+        firstName: '1234567890123456789012345678901',
+      }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          maxLength: 'firstName must be shorter than or equal to 30 characters',
+        },
+      },
+    ]);
+
+    await expect(
+      controller.addUser({
+        ...usersRequest,
+        lastName: 'ln',
+      }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          minLength: 'lastName must be longer than or equal to 3 characters',
+        },
+      },
+    ]);
+
+    await expect(
+      controller.addUser({
+        ...usersRequest,
+        lastName: '1234567890123456789012345678901',
+      }),
+    ).rejects.toMatchObject([
+      {
+        constraints: {
+          maxLength: 'lastName must be shorter than or equal to 30 characters',
+        },
+      },
     ]);
   });
 });
