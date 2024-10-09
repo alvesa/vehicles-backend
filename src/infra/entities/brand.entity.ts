@@ -1,13 +1,24 @@
-import { randomUUID } from 'crypto';
+import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
+import { HydratedDocument } from 'mongoose';
 
+export type BrandDocument = HydratedDocument<Brand>;
+
+@Schema({ timestamps: true })
 export class Brand {
+  @Prop({ required: true })
   id: string;
+
+  @Prop()
   name: string;
+
+  @Prop()
   active: boolean;
 
-  constructor(name: string, active: boolean = true) {
-    this.id = randomUUID();
-    this.name = name;
-    this.active = active;
-  }
+  @Prop()
+  createdAt: Date;
+
+  @Prop()
+  updatedAt: Date;
 }
+
+export const BrandSchema = SchemaFactory.createForClass(Brand);

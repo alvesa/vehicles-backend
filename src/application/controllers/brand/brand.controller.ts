@@ -1,26 +1,14 @@
-import {
-  Body,
-  Controller,
-  Get,
-  Inject,
-  Param,
-  Patch,
-  Post,
-} from '@nestjs/common';
-import { BaseService, BrandDto } from '../../../domain';
-import { BrandResponse } from './dtos/brand.response';
+import { Body, Controller, Get, Param, Patch, Post } from '@nestjs/common';
+import { BrandDto, BrandService } from '../../../domain';
 import { BrandRequest, BrandUpdateRequest } from './dtos/brand.request';
 
 @Controller('brand')
 export class BrandController {
-  constructor(
-    @Inject('BRAND_SERVICE')
-    private readonly brandService: BaseService<BrandDto, BrandResponse>,
-  ) {}
+  constructor(private readonly brandService: BrandService) {}
 
   @Get()
-  getAll(): BrandResponse[] {
-    const brands = this.brandService.getAll();
+  async getAll(): Promise<any[]> {
+    const brands = await this.brandService.getAll();
 
     return brands.map((brand) => ({
       id: brand.id,
@@ -30,21 +18,21 @@ export class BrandController {
   }
 
   @Get(':id')
-  getById(@Param('id') brandId: string): BrandResponse {
-    return this.brandService.getById(brandId);
+  async getById(@Param('id') brandId: string): Promise<any> {
+    return await this.brandService.getById(brandId);
   }
 
   @Post()
-  addBrand(@Body() request: BrandRequest): string {
-    return this.brandService.add(new BrandDto(request.name));
+  async addBrand(@Body() request: BrandRequest): Promise<string> {
+    return await this.brandService.add(new BrandDto(request.name));
   }
 
   @Patch()
-  updateBrand(@Body() request: BrandUpdateRequest): void {
-    const brand = this.brandService.getById(request.id);
+  async updateBrand(@Body() request: BrandUpdateRequest): Promise<void> {
+    const brand = await this.brandService.getById(request.id);
 
     brand.name = request.name;
 
-    this.brandService.update(brand);
+    await this.brandService.update(brand);
   }
 }

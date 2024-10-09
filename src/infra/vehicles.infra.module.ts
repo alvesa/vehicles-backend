@@ -1,6 +1,5 @@
 import { Module } from '@nestjs/common';
 import {
-  Brand,
   BrandRepository,
   Country,
   CountryRepository,
@@ -25,6 +24,7 @@ import {
 } from '../infra';
 import { VehicleRepository } from './repositories/vehicle/vehicle.repository';
 import { GearRespository } from './repositories/gear/gear.repository';
+import { MongoModule } from './db/mongo/mongo.module';
 
 const userRepoProvider = {
   useValue: UserDatasetRepository,
@@ -45,7 +45,7 @@ const countryRepoProvider = {
 };
 
 const brandRepoProvider = {
-  useValue: DatasetRepository<Brand>,
+  // useValue: DatasetRepository<Brand>,
   provide: 'BRAND_REPOSITORY',
   useClass: BrandRepository,
 };
@@ -93,7 +93,7 @@ const versionRepoProvider = {
 };
 
 @Module({
-  imports: [],
+  imports: [MongoModule],
   providers: [
     MockDataset,
     userRepoProvider,
@@ -110,6 +110,8 @@ const versionRepoProvider = {
   ],
   exports: [
     MockDataset,
+    MongoModule,
+
     userRepoProvider,
     brandRepoProvider,
     countryRepoProvider,

@@ -1,6 +1,7 @@
 import { Expose } from 'class-transformer';
 import {
   IsEmail,
+  IsString,
   IsStrongPassword,
   Matches,
   MaxLength,
@@ -11,12 +12,14 @@ export class UserRequest {
   @Expose()
   @MinLength(3)
   @MaxLength(30)
+  @IsString()
   @Matches(/^[a-zA-ZÀ-ÖØ-öø-ÿ'’\-.\s]+$/g)
   firstName: string;
 
   @Expose()
   @MinLength(3)
   @MaxLength(30)
+  @IsString()
   @Matches(/^[a-zA-ZÀ-ÖØ-öø-ÿ'’\-.\s]+$/g)
   lastName: string;
 

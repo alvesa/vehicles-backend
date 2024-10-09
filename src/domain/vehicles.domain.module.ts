@@ -16,7 +16,6 @@ import {
   VehicleService,
   UserBaseService,
   OpinionDto,
-  BrandDto,
   ModelDto,
   VersionDto,
   VehicleDto,
@@ -25,7 +24,6 @@ import {
   GearDto,
 } from './';
 import {
-  BrandResponse,
   CountryResponse,
   FuelResponse,
   GearResponse,
@@ -61,12 +59,6 @@ const localityServiceProvider = {
   provide: 'LOCALITY_SERVICE',
   useValue: BaseService<LocalityDto, LocalityResponse>,
   useClass: LocalityService,
-};
-
-const brandServiceProvider = {
-  provide: 'BRAND_SERVICE',
-  useValue: BaseService<BrandDto, BrandResponse>,
-  useClass: BrandService,
 };
 
 const modelServiceProvider = {
@@ -112,7 +104,7 @@ const gearServiceProvider = {
     userServiceProvider,
     countryServiceProvider,
     localityServiceProvider,
-    brandServiceProvider,
+    BrandService,
     modelServiceProvider,
     versionServiceProvider,
     vehicleServiceProvider,
@@ -126,7 +118,7 @@ const gearServiceProvider = {
     userServiceProvider,
     countryServiceProvider,
     localityServiceProvider,
-    brandServiceProvider,
+    BrandService,
     modelServiceProvider,
     versionServiceProvider,
     vehicleServiceProvider,

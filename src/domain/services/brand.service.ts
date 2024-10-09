@@ -1,7 +1,5 @@
-import { Inject, Injectable } from '@nestjs/common';
-import { Brand, DatasetRepository } from '../../infra';
-import { BaseService } from './base.service';
-import { BrandResponse } from 'application';
+import { Injectable } from '@nestjs/common';
+import { Brand, BrandRepository } from '../../infra';
 
 // TODO: include all dtos to a specific path
 export class BrandDto {
@@ -13,31 +11,29 @@ export class BrandDto {
 }
 
 @Injectable()
-export class BrandService extends BaseService<BrandDto, BrandResponse> {
-  constructor(
-    @Inject('BRAND_REPOSITORY')
-    private readonly brandRepository: DatasetRepository<Brand>,
-  ) {
-    super();
+export class BrandService {
+  constructor(private readonly brandRepository: BrandRepository) {}
+
+  async getAll(): Promise<Brand[]> {
+    return await this.brandRepository.getAll();
   }
 
-  getAll(): Brand[] {
-    return this.brandRepository.getAll();
+  async getById(id: string): Promise<any> {
+    return await this.brandRepository.getById(id);
   }
 
-  getById(id: string): Brand {
-    return this.brandRepository.getById(id);
+  async add(entity: BrandDto): Promise<string> {
+    return await this.brandRepository.save({
+      name: entity.name,
+      active: true,
+    });
   }
 
-  add(entity: BrandDto): string {
-    return this.brandRepository.save(new Brand(entity.name));
+  async update(entity: any): Promise<void> {
+    await this.brandRepository.update(entity);
   }
 
-  update(entity: Brand): void {
-    this.brandRepository.update(entity);
-  }
-
-  delete(id: string): void {
-    this.brandRepository.delete(id);
+  async delete(id: string): Promise<void> {
+    await this.brandRepository.delete(id);
   }
 }
